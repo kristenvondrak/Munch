@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements OnDateChangedList
     public Calendar m_Calendar;
     private TabLayout m_TabLayout;
 
+
     // Toolbar
     private Toolbar m_Toolbar;
     private ImageView m_NextDateButton;
@@ -180,7 +181,8 @@ public class MainActivity extends AppCompatActivity implements OnDateChangedList
             @Override
             public void onClick(View v) {
                 // Calendar picker dialog
-                new DatePickerDialog(m_Activity, m_DatePickerListener, m_Calendar.get(Calendar.YEAR),
+                new DatePickerDialog(m_Activity, R.style.BasicAlertDialog,
+                        m_DatePickerListener, m_Calendar.get(Calendar.YEAR),
                         m_Calendar.get(Calendar.MONTH), m_Calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });

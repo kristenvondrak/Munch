@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.example.kristenvondrak.dartmunch.Database.DatabaseFragment;
 import com.example.kristenvondrak.dartmunch.Main.Constants;
 import com.example.kristenvondrak.dartmunch.Menu.MenuFragment;
+import com.example.kristenvondrak.dartmunch.Menu.MenuFragmentHost;
 import com.example.kristenvondrak.dartmunch.MyFoods.MyFoodsFragment;
 import com.example.kristenvondrak.dartmunch.MyMeals.MyMealsFragment;
 import com.example.kristenvondrak.dartmunch.R;
@@ -31,10 +32,12 @@ import com.example.kristenvondrak.dartmunch.Recent.RecentsFragment;
 
 import java.util.Calendar;
 
-public class AddFoodActivity extends AppCompatActivity {
+public class AddFoodActivity extends AppCompatActivity implements MenuFragmentHost {
 
     private Toolbar m_Toolbar;
     private TabLayout m_TabLayout;
+    private Calendar m_Calendar;
+    private int m_SelectedUserMeal;
 
     private String[] m_TabTitles = {
             "DDS",
@@ -69,32 +72,24 @@ public class AddFoodActivity extends AppCompatActivity {
 
 
         final android.support.v7.app.ActionBar ab = getSupportActionBar();
-        //ab.setHomeAsUpIndicator(R.drawable.ic_menu); // set a custom icon for the default home button
-        ab.setDisplayShowHomeEnabled(true); // show or hide the default home button
-
-
-        ab.setDisplayShowCustomEnabled(true); // enable overriding the default toolbar layout
-        ab.setDisplayShowTitleEnabled(false); // disable the
-
-        // hack set the up arrow as calendar icon
+        ab.setDisplayShowHomeEnabled(true);         // show the default home button
         ab.setDisplayHomeAsUpEnabled(true);
+        ab.setDisplayShowTitleEnabled(true);        // show title
 
 
         // Retrieve data from calling activity
         Intent intent = getIntent();
 
         // Meal time
-        //m_SelectedUserMeal = intent.getIntExtra(MenuFragment.EXTRA_MEAL_TIME, 0);
-        //resetMealSelector();
+        m_SelectedUserMeal = intent.getIntExtra(DiaryFragment.EXTRA_USERMEAL_INDEX, 0);
 
         // Date
-        //long date = intent.getLongExtra(MenuFragment.EXTRA_DATE, Calendar.getInstance().getTimeInMillis());
-        //m_Calendar = Calendar.getInstance();
-        //m_Calendar.setTimeInMillis(date);
+        long date = intent.getLongExtra(DiaryFragment.EXTRA_DATE, Calendar.getInstance().getTimeInMillis());
+        m_Calendar = Calendar.getInstance();
+        m_Calendar.setTimeInMillis(date);
 
-        // ab.setHomeAsUpIndicator(R.drawable.calendar);
 
-        // Create the adapter that will return a fragment for each of the three
+        // Create the adapter that will return a fragment for each of the five
         // primary sections of the activity.
         m_SectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
@@ -102,6 +97,7 @@ public class AddFoodActivity extends AppCompatActivity {
         m_ViewPager = (ViewPager) findViewById(R.id.container);
         m_ViewPager.setAdapter(m_SectionsPagerAdapter);
 
+        // Add ViewPager to the tab layout
         m_TabLayout = (TabLayout) findViewById(R.id.tabs);
         m_TabLayout.setupWithViewPager(m_ViewPager);
     }
@@ -124,39 +120,9 @@ public class AddFoodActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        public PlaceholderFragment() {
-        }
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_add_food, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
+    @Override
+    public int getMode() {
+        return MenuFragment.DIARY;
     }
 
     /**
@@ -173,18 +139,21 @@ public class AddFoodActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            if (position == 0)
-                return new MenuFragment();
-            else if (position == 1)
-                return new RecentsFragment();
-            else if (position == 2)
-                return new MyMealsFragment();
-            else if (position == 3)
-                return new MyFoodsFragment();
-            else if (position == 4)
-                return new DatabaseFragment();
-
-            return PlaceholderFragment.newInstance(position);
+            switch (position) {
+                case 0:
+                    return new MenuFragment();
+                case 1:
+                    return new RecentsFragment();
+                case 2:
+                    return new MyMealsFragment();
+                case 3:
+                    return new MyFoodsFragment();
+                case 4:
+                    return new DatabaseFragment();
+                default:
+                    // should never get here
+                    return null;
+            }
         }
 
         @Override
@@ -217,5 +186,13 @@ public class AddFoodActivity extends AppCompatActivity {
                 break;
         }
 
+    }
+
+    public int getUserMealIndex() {
+        return m_SelectedUserMeal;
+    }
+
+    public Calendar getCalendar() {
+        return m_Calendar;
     }
 }

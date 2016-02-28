@@ -112,7 +112,7 @@
     </style>
 
 
-    <style name="BasicAlertDialogStyle" parent="android:Theme.Holo.Light.Dialog">
+    <style name="BasicAlertDialog" parent="android:Theme.Material.Light.Dialog">
         <!-- Used for the buttons -->
         <item name="colorAccent">@color/colorPrimaryDarker</item>
         <!-- Used for the title and text -->

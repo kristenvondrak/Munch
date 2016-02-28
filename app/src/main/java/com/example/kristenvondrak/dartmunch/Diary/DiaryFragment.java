@@ -43,12 +43,12 @@ public class DiaryFragment extends Fragment implements OnDateChangedListener, Ma
 
     public static final String EXTRA_DIARY_ENTRY_ID = "EXTRA_DIARY_ENTRY_ID";
     public static final String EXTRA_USER_MEAL_ID = "EXTRA_USER_MEAL_ID";
-    public static final String EXTRA_MEALTIME = "EXTRA_MEALTIME";
+    public static final String EXTRA_USERMEAL_INDEX = "EXTRA_USERMEAL_INDEX";
     public static final String EXTRA_DATE = "EXTRA_DATE";
 
     private AppCompatActivity m_Activity;
 
-    // For communication with activity
+    // For communication with parent activity
     public OnDateChangedListener m_Callback;
 
     // Main
@@ -142,7 +142,8 @@ public class DiaryFragment extends Fragment implements OnDateChangedListener, Ma
 
         // Allow user to pick date from date picker dialog
         if (id == R.id.action_calendar) {
-            new DatePickerDialog(m_Activity, m_DatePickerListener, m_Calendar.get(Calendar.YEAR),
+            new DatePickerDialog(m_Activity, R.style.BasicAlertDialog,
+                    m_DatePickerListener, m_Calendar.get(Calendar.YEAR),
                     m_Calendar.get(Calendar.MONTH), m_Calendar.get(Calendar.DAY_OF_MONTH)).show();
             return true;
         }

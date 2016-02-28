@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.example.kristenvondrak.dartmunch.Diary.AddFoodActivity;
 import com.example.kristenvondrak.dartmunch.Main.Constants;
 import com.example.kristenvondrak.dartmunch.Main.Utils;
 import com.example.kristenvondrak.dartmunch.Parse.Recipe;
@@ -63,11 +64,13 @@ public class MyMealsFragment extends Fragment implements SearchView.OnQueryTextL
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_mymeals, container, false);
 
+        setHasOptionsMenu(true);
         m_Activity = getActivity();
         m_Fragment = this;
-        m_Calendar = Calendar.getInstance();
 
-        setHasOptionsMenu(true); // need for search
+
+        boolean addFoodActivity = m_Activity instanceof AddFoodActivity;
+        m_Calendar = addFoodActivity ? ((AddFoodActivity) m_Activity).getCalendar() : Calendar.getInstance();
 
         initViews(v);
         initListeners();

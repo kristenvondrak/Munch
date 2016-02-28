@@ -25,6 +25,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.kristenvondrak.dartmunch.Diary.AddFoodActivity;
 import com.example.kristenvondrak.dartmunch.Main.Constants;
 import com.example.kristenvondrak.dartmunch.Main.Utils;
 import com.example.kristenvondrak.dartmunch.MyMeals.AddMealActivity;
@@ -73,7 +74,7 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
     private List<DatabaseRecipe> m_DbRecipesList;
     private DatabaseListAdapter m_DbRecipesListAdapter;
     private RequestQueue m_RequestQueue;
-    private int m_SelectedMealTime = 0;
+    private int m_SelectedMealTime;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,16 +87,17 @@ public class DatabaseFragment extends Fragment implements SearchView.OnQueryText
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_database, container, false);
 
+        setHasOptionsMenu(true);
         m_Activity = getActivity();
         m_Fragment = this;
-        m_Calendar = Calendar.getInstance();
 
-        setHasOptionsMenu(true); // need for search
+
+        boolean addFoodActivity = m_Activity instanceof AddFoodActivity;
+        m_Calendar = addFoodActivity ? ((AddFoodActivity) m_Activity).getCalendar() : Calendar.getInstance();
+        m_SelectedMealTime = addFoodActivity ? ((AddFoodActivity)m_Activity).getUserMealIndex() : 0;
 
         initViews(v);
         initListeners();
-
-        // TODO: get calendar, mealtime from activity
 
         m_DbRecipesList = new ArrayList<>();
         m_DbRecipesListAdapter = new DatabaseListAdapter(m_Activity, this, m_DbRecipesList);

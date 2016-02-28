@@ -37,9 +37,6 @@ import java.util.List;
 
 public class MyFoodsFragment extends RecipeFragment {
 
-    public static final String EXTRA_MEALTIME = "EXTRA_MEALTIME";
-    public static final String EXTRA_DATE = "EXTRA_DATE";
-
     private RelativeLayout m_AddCustomFoodRow;
 
     @Override
@@ -53,13 +50,13 @@ public class MyFoodsFragment extends RecipeFragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_myfoods, container, false);
 
+        setHasOptionsMenu(true);
         m_Activity = getActivity();
         m_Fragment = this;
-        m_Calendar = Calendar.getInstance();
 
-        // TODO: get date and meal time from activity
-
-        setHasOptionsMenu(true); // need for search
+        boolean addFoodActivity = m_Activity instanceof AddFoodActivity;
+        m_Calendar = addFoodActivity ? ((AddFoodActivity) m_Activity).getCalendar() : Calendar.getInstance();
+        m_SelectedMealTime = addFoodActivity ? ((AddFoodActivity)m_Activity).getUserMealIndex() : 0;
 
         initViews(v);
         initListeners();
@@ -90,7 +87,7 @@ public class MyFoodsFragment extends RecipeFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(m_Activity, CustomFoodActivity.class);
-                intent.putExtra(EXTRA_MEALTIME, m_SelectedMealTime);
+                intent.putExtra(EXTRA_USERMEAL_INDEX, m_SelectedMealTime);
                 intent.putExtra(EXTRA_DATE, m_Calendar.getTimeInMillis());
 
                 // Start AddUserMealActivity

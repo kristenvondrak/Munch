@@ -233,18 +233,24 @@ public class Constants {
         static String OkActionTitle = "OK";
     }
 
-    public static final String[] ServingsFracDisplay = {"-", "1/8", "1/4", "1/3", "1/2", "2/3", "3/4"};
-    public static final List<Float> ServingsFracFloats = Collections.unmodifiableList(
-            new ArrayList<Float>() {{
-                add(0, (float) 0);
-                add(1, (float) 1.0 / 8);
-                add(2, (float) 1.0 / 4);
-                add(3, (float) 1.0 / 3);
-                add(4, (float) 1.0 / 2);
-                add(5, (float) 2.0 / 3);
-                add(6, (float) 3.0 / 4);
 
-            }});
+    public static final String[] ServingsFracDisplay = {
+                "-",
+                Character.toString('\u215B'),  // 1/8
+                Character.toString('\u00BC'),  // 1/4
+                Character.toString('\u2153'),  // 1/3
+                Character.toString('\u00BD'),  // 1/2
+                Character.toString('\u2154'),  // 2/3
+                Character.toString('\u00BE')}; // 3/4
 
 
-}
+    public static final float[] ServingsFracFloats = {
+                (float) 0,
+                (float) 1.0 / 8,
+                (float) 1.0 / 4,
+                (float) 1.0 / 3,
+                (float) 1.0 / 2,
+                (float) 2.0 / 3,
+                (float) 3.0 / 4};
+
+    }

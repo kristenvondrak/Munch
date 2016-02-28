@@ -25,7 +25,7 @@ import java.util.List;
 public class RecipeFragment extends Fragment implements SearchView.OnQueryTextListener {
 
     public static final String EXTRA_RECIPE_ID = "EXTRA_RECIPE_ID";
-    public static final String EXTRA_MEAL_TIME = "EXTRA_MEAL_TIME";
+    public static final String EXTRA_USERMEAL_INDEX = "EXTRA_USERMEAL_INDEX";
     public static final String EXTRA_DATE = "EXTRA_DATE";
 
     protected Activity m_Activity;
@@ -112,7 +112,7 @@ public class RecipeFragment extends Fragment implements SearchView.OnQueryTextLi
         Intent intent = new Intent(m_Activity, NutritionActivity.class);
         intent.putExtra(EXTRA_RECIPE_ID, recipe.getObjectId());
         intent.putExtra(EXTRA_DATE, m_Calendar.getTimeInMillis());
-        intent.putExtra(EXTRA_MEAL_TIME, m_SelectedMealTime);
+        intent.putExtra(EXTRA_USERMEAL_INDEX, m_SelectedMealTime);
 
         m_Activity.startActivityForResult(intent, Constants.REQUEST_ADD_FROM_DIARY);
         //m_Activity.overridePendingTransition(R.anim.none, R.anim.slide_in_from_bottom);

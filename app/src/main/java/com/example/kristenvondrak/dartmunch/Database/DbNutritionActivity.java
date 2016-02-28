@@ -138,7 +138,7 @@ public class DbNutritionActivity extends NutritionActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_add) {
-            float fraction = Constants.ServingsFracFloats.get(m_ServingsFraction);
+            float fraction = Constants.ServingsFracFloats[m_ServingsFraction];
             m_Recipe.saveInBackground();
             ParseAPI.addDiaryEntry( m_Calendar,
                                     ParseUser.getCurrentUser(),

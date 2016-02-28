@@ -34,7 +34,7 @@
             android:maxWidth="250dp"
             android:singleLine="true"
             android:ellipsize="end"
-            android:textSize="17dp"
+            android:textSize="18dp"
             android:text="Chicken Noodle Soup"
             android:textColor="@color/black"/>
 
@@ -42,7 +42,7 @@
             android:id="@+id/item_servings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14dp"
+            android:textSize="15dp"
             android:text="2 servings"
             android:textColor="@color/lightGray"/>
 

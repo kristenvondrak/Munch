@@ -62,7 +62,7 @@ public class CustomFoodActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         // Meal time
-        m_SelectedUserMeal = intent.getIntExtra(MyFoodsFragment.EXTRA_MEALTIME, 0);
+        m_SelectedUserMeal = intent.getIntExtra(MyFoodsFragment.EXTRA_USERMEAL_INDEX, 0);
 
         // Date
         long date = intent.getLongExtra(MyFoodsFragment.EXTRA_DATE, Calendar.getInstance().getTimeInMillis());

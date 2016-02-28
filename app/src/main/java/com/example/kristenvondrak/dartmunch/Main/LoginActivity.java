@@ -301,7 +301,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderManager.Lo
         }
 
         final ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this,
-                R.style.AppTheme_Dark_Dialog);
+                R.style.BasicAlertDialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();

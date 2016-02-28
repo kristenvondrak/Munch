@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.kristenvondrak.dartmunch.Main.Constants;
 import com.example.kristenvondrak.dartmunch.Main.MainActivity;
+import com.example.kristenvondrak.dartmunch.Main.Utils;
 import com.example.kristenvondrak.dartmunch.Parse.DiaryEntry;
 import com.example.kristenvondrak.dartmunch.Parse.Recipe;
 import com.example.kristenvondrak.dartmunch.Parse.UserMeal;
@@ -148,17 +149,20 @@ public class DiaryListAdapter extends BaseAdapter {
                 rowView = m_Inflater.inflate(R.layout.diary_entry, null);
                 Recipe recipe = entry.getRecipe();
 
+                // Name
                 TextView name = (TextView) rowView.findViewById(R.id.item_name);
                 name.setText(recipe.getName());
 
+                // Calories
                 TextView cal = (TextView) rowView.findViewById(R.id.item_cals);
                 cal.setText(Integer.toString(entry.getTotalCalories()));
 
+                // Servings
                 TextView servings = (TextView) rowView.findViewById(R.id.item_servings);
+                String string = Utils.getServingsString(entry.getServingsMultiplier());
+                servings.setText(string);
 
-                // TODO: use display not float
-                servings.setText(Float.toString(entry.getServingsMultiplier()) + " Servings");
-
+                // On click start EditDiaryEntryActivity
                 rowView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -167,8 +171,6 @@ public class DiaryListAdapter extends BaseAdapter {
                         intent.putExtra(DiaryFragment.EXTRA_DIARY_ENTRY_ID, entry.getObjectId());
                         intent.putExtra(DiaryFragment.EXTRA_USER_MEAL_ID, m_EntryToUserMealIdMap.get(entry));
                         intent.putExtra(DiaryFragment.EXTRA_DATE, m_Calendar.getTimeInMillis());
-
-                        // Start EditDiaryEntryActivity
                         m_Activity.startActivityForResult(intent, Constants.REQUEST_EDIT_FOOD);
                         //m_Activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left);
 
@@ -199,17 +201,14 @@ public class DiaryListAdapter extends BaseAdapter {
                     cals.setText(Integer.toString(total));
                 }
 
-                // Add to meal button
-                //ImageView addBtn = (ImageView) rowView.findViewById(R.id.usermeal_add_btn);
+                // On click start AddFoodActivity
                 rowView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // Pass the meal time and date
                         Intent intent = new Intent(m_Activity, AddFoodActivity.class);
-                        intent.putExtra(DiaryFragment.EXTRA_MEALTIME, title);
+                        intent.putExtra(DiaryFragment.EXTRA_USERMEAL_INDEX, Utils.getUserMealIndex(title));
                         intent.putExtra(DiaryFragment.EXTRA_DATE, m_Calendar.getTimeInMillis());
-
-                        // Start AddUserMealActivity
                         m_Activity.startActivityForResult(intent, Constants.REQUEST_ADD_FROM_DIARY);
                         //m_Activity.overridePendingTransition(R.anim.none, R.anim.slide_in_from_bottom);
 

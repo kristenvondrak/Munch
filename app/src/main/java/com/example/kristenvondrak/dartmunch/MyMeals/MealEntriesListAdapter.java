@@ -12,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.example.kristenvondrak.dartmunch.Main.Utils;
 import com.example.kristenvondrak.dartmunch.Parse.DiaryEntry;
 import com.example.kristenvondrak.dartmunch.Parse.UserMeal;
 import com.example.kristenvondrak.dartmunch.R;
@@ -64,7 +65,7 @@ public class MealEntriesListAdapter extends BaseAdapter {
                 if (!isChecked)
                     m_UncheckedEntries.add(position);
                 else
-                    m_UncheckedEntries.remove((Integer)position);
+                    m_UncheckedEntries.remove((Integer) position);
 
                 m_Activity.resetTotalCals(getSelectedEntries());
             }
@@ -74,7 +75,8 @@ public class MealEntriesListAdapter extends BaseAdapter {
         name.setText(entry.getRecipe().getName());
 
         TextView servings = (TextView) rowView.findViewById(R.id.item_servings);
-        servings.setText(Float.toString(entry.getServingsMultiplier()) + " Servings");
+        String string = Utils.getServingsString(entry.getServingsMultiplier());
+        servings.setText(string);
 
         TextView cals = (TextView) rowView.findViewById(R.id.item_cals);
         cals.setText(Integer.toString(entry.getTotalCalories()));

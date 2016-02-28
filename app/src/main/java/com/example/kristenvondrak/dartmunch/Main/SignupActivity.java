@@ -312,8 +312,7 @@ public class SignupActivity extends AppCompatActivity implements LoaderCallbacks
             return;
         }
 
-        final ProgressDialog progressDialog = new ProgressDialog(m_Activity,
-                R.style.AppTheme_Dark_Dialog);
+        final ProgressDialog progressDialog = new ProgressDialog(m_Activity, R.style.BasicAlertDialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
         progressDialog.show();

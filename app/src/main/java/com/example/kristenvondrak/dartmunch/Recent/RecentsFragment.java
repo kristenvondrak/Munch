@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.example.kristenvondrak.dartmunch.Diary.AddFoodActivity;
 import com.example.kristenvondrak.dartmunch.Diary.RecipeFragment;
 import com.example.kristenvondrak.dartmunch.Diary.RecipeListAdapter;
 import com.example.kristenvondrak.dartmunch.Main.Utils;
@@ -44,11 +45,13 @@ public class RecentsFragment extends RecipeFragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_recents, container, false);
 
+        setHasOptionsMenu(true);
         m_Activity = getActivity();
         m_Fragment = this;
-        m_Calendar = Calendar.getInstance();
 
-        setHasOptionsMenu(true); // need for search
+        boolean addFoodActivity = m_Activity instanceof AddFoodActivity;
+        m_Calendar = addFoodActivity ? ((AddFoodActivity) m_Activity).getCalendar() : Calendar.getInstance();
+        m_SelectedMealTime = addFoodActivity ? ((AddFoodActivity)m_Activity).getUserMealIndex() : 0;
 
         initViews(v);
         initListeners();

@@ -40,5 +40,6 @@
     <color name="calsUnder">#1B5E20</color>
     <color name="calsOver">#FF0000</color>
     <color name="diaryAccent">#FFA000</color>
+    <color name="diaryLightAccent">#FFE0B2</color>
 
 </resources>

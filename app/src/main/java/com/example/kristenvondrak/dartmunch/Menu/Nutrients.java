@@ -1,6 +1,7 @@
 package com.example.kristenvondrak.dartmunch.Menu;
 
 public class Nutrients {
+
     public static int NONE = -1;
 
     public static int stripChars(String string) {

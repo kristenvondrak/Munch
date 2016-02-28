@@ -26,6 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.kristenvondrak.dartmunch.Main.Constants;
+import com.example.kristenvondrak.dartmunch.Main.Utils;
 import com.example.kristenvondrak.dartmunch.Menu.MenuFragment;
 import com.example.kristenvondrak.dartmunch.Menu.Nutrients;
 import com.example.kristenvondrak.dartmunch.Menu.NutritionActivity;
@@ -84,9 +85,16 @@ public class EditFoodActivity extends NutritionActivity {
             @Override
             public void done(ParseObject object, com.parse.ParseException e) {
                 if (e == null) {
+                    // Get DiaryEntry and Recipe objects
                     m_DiaryEntry = (DiaryEntry) object;
                     m_Recipe = m_DiaryEntry.getRecipe();
                     m_RecipeName.setText(m_Recipe.getName());
+
+                    // Set servings selectors
+                    float servings = m_DiaryEntry.getServingsMultiplier();
+                    m_ServingsWhole = Utils.getServingsWholeIndex(servings);
+                    m_ServingsFraction = Utils.getServingsFracIndex(servings);
+                    resetServingsSelector();
                     updateNutrients();
                 } else {
                     Log.d("Error", e.getMessage());
@@ -167,7 +175,7 @@ public class EditFoodActivity extends NutritionActivity {
                 if (e == null) {
                     //TODO: for non-DDS items --> update all
                     DiaryEntry entry = (DiaryEntry) object;
-                    float servings = m_ServingsWhole + Constants.ServingsFracFloats.get(m_ServingsFraction);
+                    float servings = m_ServingsWhole + Constants.ServingsFracFloats[m_ServingsFraction];
                     entry.put("servingsMultiplier", servings);
                     entry.saveInBackground();
                 }

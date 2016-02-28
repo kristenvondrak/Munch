@@ -20,9 +20,12 @@ import com.example.kristenvondrak.dartmunch.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Created by kristenvondrak on 2/10/16.
@@ -31,7 +34,7 @@ public class Utils {
 
     public static AlertDialog createAlertDialog(Activity activity, String title, String message) {
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.BasicAlertDialogStyle);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity, R.style.BasicAlertDialog);
 
         LayoutInflater inflater = activity.getLayoutInflater();
         View v = inflater.inflate(R.layout.dialog_basic, null);
@@ -67,20 +70,6 @@ public class Utils {
         return first.equals(second);
     }
 
-    public static int getServingsFracIndex(float value) {
-        for (int i = 0; i < Constants.ServingsFracFloats.size(); i++) {
-            if (value == Constants.ServingsFracFloats.get(i))
-                return i;
-            else if (value < Constants.ServingsFracFloats.get(i)) {
-                float d1 = Constants.ServingsFracFloats.get(i) - value;
-                float d2 = value - Constants.ServingsFracFloats.get(i - 1);
-
-                return d1 < d2 ? i : i - 1;
-            }
-        }
-        return 0;
-    }
-
     public static Date getDateBefore(Calendar calendar) {
         Calendar c = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -101,32 +90,6 @@ public class Utils {
         return c.getTime();
     }
 
-    public static String getDisplayStringFromCal(Calendar cal) {
-        SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT_DISPLAY, Locale.US);
-        return sdf.format(cal.getTime());
-    }
-
-
-    public static String getStringExtraFromCal(Calendar cal) {
-        SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT_EXTRA, Locale.US);
-        return sdf.format(cal.getTime());
-    }
-
-    public static List<Recipe> copyRecipeList(List<Recipe> list) {
-        List<Recipe> copy = new ArrayList<>();
-        for (Recipe r : list) {
-            copy.add(r);
-        }
-        return copy;
-    }
-
-    public static List<UserMeal> copyMealsList(List<UserMeal> list) {
-        List<UserMeal> copy = new ArrayList<>();
-        for (UserMeal r : list) {
-            copy.add(r);
-        }
-        return copy;
-    }
 
     public static void showProgressSpinner(ProgressBar view) {
 
@@ -167,4 +130,51 @@ public class Utils {
         }
         return 0;
     }
+
+    public static int getUserMealIndex(String userMealName) {
+        Constants.UserMeals[] array = Constants.UserMeals.values();
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].name().equals(userMealName))
+                return i;
+        }
+        return 0;
+    }
+
+
+    public static int getServingsFracIndex(float value) {
+        int whole = (int) Math.floor(value);
+        float fraction = value - whole;
+
+        for (int i = 0; i < Constants.ServingsFracFloats.length; i++) {
+            if (fraction == Constants.ServingsFracFloats[i])
+                return i;
+            else if (fraction < Constants.ServingsFracFloats[i]) {
+                float d1 = Constants.ServingsFracFloats[i] - fraction;
+                float d2 = fraction - Constants.ServingsFracFloats[i - 1];
+
+                return d1 < d2 ? i : i - 1;
+            }
+        }
+        return 0;
+    }
+
+    public static int getServingsWholeIndex(float value) {
+        return (int) Math.floor(value);
+    }
+
+    public static String getServingsString(float number) {
+
+        // Split into whole number and fraction
+        int whole = (int) Math.floor(number);
+        float fraction = number - whole;
+
+        String stringValue = Integer.toString(whole);
+        if (fraction != 0)
+            stringValue += " " + Constants.ServingsFracDisplay[getServingsFracIndex(fraction)];
+
+
+        String units = (number - 1 == 0) ? "  Serving" : "  Servings";
+        return stringValue + units;
+    }
+
 }

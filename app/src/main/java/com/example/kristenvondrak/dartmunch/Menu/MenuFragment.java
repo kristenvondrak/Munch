@@ -1,15 +1,12 @@
 package com.example.kristenvondrak.dartmunch.Menu;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,15 +15,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.DatePicker;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.support.v7.widget.SearchView;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.kristenvondrak.dartmunch.Main.Constants;
 import com.example.kristenvondrak.dartmunch.Main.MainTabFragment;
@@ -41,12 +34,10 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 
 public class MenuFragment extends Fragment implements
@@ -55,23 +46,18 @@ public class MenuFragment extends Fragment implements
 
     public static final String EXTRA_RECIPE_ID = "EXTRA_RECIPE_ID";
     public static final String EXTRA_DATE = "EXTRA_DATE";
-    public static final String EXTRA_MEAL_TIME = "EXTRA_MEALTIME";
+    public static final String EXTRA_USERMEAL_INDEX = "EXTRA_USERMEAL_INDEX";
 
-    // For communication with activity
-    public OnDateChangedListener m_Callback;
-
-    private enum MODE {MENU, DIARY};
+    public static final int MENU = 0;
+    public static final int DIARY = 1;
 
     // Header
     private AppCompatActivity m_Activity;
     private Calendar m_Calendar = Calendar.getInstance();
-
-    // Search
-    private boolean SEARCH_MODE = false;
+    private int m_Mode = 0;
 
     // Main
     private ProgressBar m_ProgressSpinner;
-    private MODE m_Mode;
 
     // Venue Tabs
     private TableRow m_VenueTabs;
@@ -103,10 +89,15 @@ public class MenuFragment extends Fragment implements
         View v = inflater.inflate(R.layout.fragment_menu, container, false);
 
         m_Activity = (AppCompatActivity) getActivity();
+        setHasOptionsMenu(true);
 
-        setHasOptionsMenu(true); // need for search
+        try {
+            m_Mode = ((MenuFragmentHost) m_Activity).getMode();
+        } catch (ClassCastException e) {
+            // activity must implement MenuFragmentHost interface
+        }
 
-        //setMode();
+
         initializeViews(v);
         initializeListeners();
 
@@ -137,11 +128,71 @@ public class MenuFragment extends Fragment implements
         changeInVenue();
     }
 
+    @Override
+    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
 
-    // ------------------------------------------------------------------------- Views
+        inflater.inflate(R.menu.menu_tab_menu, menu);
+
+        // Enable search
+        MenuItem search = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) search.getActionView();
+        searchView.setOnQueryTextListener(this);
+
+        // Need to clear search when done
+        MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.action_search), new MenuItemCompat.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                // Clear search when search view is closing
+                m_MenuItemListAdapter.updateData(m_MenuItemsList);
+
+                return true;
+            }
+        });
+
+        // Enable the default home button
+        final android.support.v7.app.ActionBar ab = m_Activity.getSupportActionBar();
+        ab.setDisplayShowHomeEnabled(true);
+        ab.setDisplayHomeAsUpEnabled(true);
+
+
+        // Only show if we are in the diary tab
+        if (m_Mode == MENU) {
+            ab.setHomeAsUpIndicator(R.drawable.ic_dummy_menu);
+        }
+
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_search) {
+            return true;
+
+        } else if (id == android.R.id.home && m_Mode == MENU) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+    // ----------------------------------------------------------------------------------- Views
 
     private void initializeViews(View v) {
-
         m_ProgressSpinner = (ProgressBar) v.findViewById(R.id.progress_spinner);
         m_VenueTabs = (TableRow) v.findViewById(R.id.venue_tabs_row);
         m_MealTimesTabs = (TableRow) v.findViewById(R.id.mealtime_tabs_row);
@@ -152,8 +203,10 @@ public class MenuFragment extends Fragment implements
     }
 
 
-    private void initializeListeners() {
 
+    // --------------------------------------------------------------------------------- Listeners
+
+    private void initializeListeners() {
 
         // Tabs need to be resized when changed
         for (int i = 0; i < m_MenuTabsLinearLayout.getChildCount(); i++) {
@@ -209,26 +262,6 @@ public class MenuFragment extends Fragment implements
         });
     }
 
-    public abstract class DoubleClickListener implements View.OnClickListener {
-
-        private static final long DOUBLE_CLICK_TIME_DELTA = 300; //milliseconds
-
-        long lastClickTime = 0;
-
-        @Override
-        public void onClick(View v) {
-            long clickTime = System.currentTimeMillis();
-            if (clickTime - lastClickTime < DOUBLE_CLICK_TIME_DELTA){
-                onDoubleClick(v);
-            } else {
-                onSingleClick(v);
-            }
-            lastClickTime = clickTime;
-        }
-
-        public abstract void onSingleClick(View v);
-        public abstract void onDoubleClick(View v);
-    }
 
     public void setHighlight(View v, boolean highlight) {
         TextView tv = (TextView)v.findViewById(R.id.menu_tab_text);
@@ -249,30 +282,8 @@ public class MenuFragment extends Fragment implements
         v.requestLayout();
     }
 
-    public void onMenuItemClick(Recipe recipe) {
-        /*
-        if (searchView.isShown()) {
-            searchMenuItem.collapseActionView();
-            searchView.setQuery("", false);
-        }
-         */
 
-
-        Intent intent = new Intent(m_Activity, NutritionActivity.class);
-        intent.putExtra(EXTRA_RECIPE_ID, recipe.getObjectId());
-        // TODO: intent.putExtra(EXTRA_DATE, m_Calendar.getTimeInMillis());
-
-        // Get user meal (breakfast, lunch, dinner, snacks) from meal time
-        Constants.MealTime mealTime = Constants.MealTime.valueOf(m_CurrentMealTime.getTag().toString());
-        intent.putExtra(EXTRA_MEAL_TIME, Utils.mealTimeToUserMealIndex(mealTime));
-
-        m_Activity.startActivityForResult(intent, Constants.REQUEST_ADD_FROM_MENU);
-        //m_Activity.overridePendingTransition(R.anim.none, R.anim.slide_in_from_bottom);
-
-    }
-
-
-    // ------------------------------------------------------------------------- Main Data/Parse
+    // ----------------------------------------------------------------------------------- Main
 
     public void changeInVenue() {
 
@@ -346,6 +357,50 @@ public class MenuFragment extends Fragment implements
         update();
     }
 
+    public void onMenuItemClick(Recipe recipe) {
+        /*
+        if (searchView.isShown()) {
+            searchMenuItem.collapseActionView();
+            searchView.setQuery("", false);
+        }
+         */
+
+        Intent intent = new Intent(m_Activity, NutritionActivity.class);
+        intent.putExtra(EXTRA_RECIPE_ID, recipe.getObjectId());
+        intent.putExtra(EXTRA_DATE, m_Calendar.getTimeInMillis());
+
+        // Get user meal (breakfast, lunch, dinner, snacks) from meal time
+        Constants.MealTime mealTime = Constants.MealTime.valueOf(m_CurrentMealTime.getTag().toString());
+        intent.putExtra(EXTRA_USERMEAL_INDEX, Utils.mealTimeToUserMealIndex(mealTime));
+        m_Activity.startActivityForResult(intent, Constants.REQUEST_ADD_FROM_MENU);
+        //m_Activity.overridePendingTransition(R.anim.none, R.anim.slide_in_from_bottom);
+
+    }
+
+
+    private void notifyMenuListAdapter() {
+        Utils.hideProgressSpinner(m_ProgressSpinner);
+        m_MenuItemListAdapter.updateData(m_MenuItemsList);
+
+        // If no recipes found, show message
+        if (m_MenuItemsList.isEmpty()) {
+            m_EmptyMenuText.setVisibility(View.VISIBLE);
+        } else {
+            m_EmptyMenuText.setVisibility(View.GONE);
+        }
+    }
+
+
+    @Override
+    public void onCalendarChanged(Calendar calendar) {
+        m_Calendar.setTimeInMillis(calendar.getTimeInMillis());
+        update();
+    }
+
+
+
+    // ---------------------------------------------------------------------------------- Parse
+
     public void update() {
         Utils.showProgressSpinner(m_ProgressSpinner);
 
@@ -418,18 +473,13 @@ public class MenuFragment extends Fragment implements
                             if (e == null) {
                                 for (ParseObject object : list)
                                     m_MenuItemsList.add((Recipe) object);
-
-                                Log.d("** menu **", "found recipes");
                             }
 
                             // If the search bar is currently open, filter the results
-                            if (SEARCH_MODE) {
+                           // if (SEARCH_MODE) {
                                 // resetSearch();
                                 // updateSearch(m_MenuItemsList, getSearchText());
-                            } else {
-                                // Notify the adapter and update the view
-
-                            }
+                           //}
                             notifyMenuListAdapter();
                         }
                     });
@@ -440,17 +490,9 @@ public class MenuFragment extends Fragment implements
         });
     }
 
-    private void notifyMenuListAdapter() {
-        Utils.hideProgressSpinner(m_ProgressSpinner);
-        m_MenuItemListAdapter.updateData(m_MenuItemsList);
 
-        // If no recipes found, show message
-        if (m_MenuItemsList.isEmpty()) {
-            m_EmptyMenuText.setVisibility(View.VISIBLE);
-        } else {
-            m_EmptyMenuText.setVisibility(View.GONE);
-        }
-    }
+
+    // ---------------------------------------------------------------------------------- Search
 
     @Override
     public boolean onQueryTextSubmit(String query) {
@@ -461,68 +503,6 @@ public class MenuFragment extends Fragment implements
     public boolean onQueryTextChange(String query) {
         m_MenuItemListAdapter.getFilter().filter(query);
         return true;
-    }
-
-
-    @Override
-    public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-
-        inflater.inflate(R.menu.menu_tab_menu, menu);
-
-        // Enable search
-        MenuItem search = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) search.getActionView();
-        searchView.setOnQueryTextListener(this);
-
-        // Need to clear search when done
-        MenuItemCompat.setOnActionExpandListener(menu.findItem(R.id.action_search), new MenuItemCompat.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem item) {
-
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem item) {
-                // Clear search when search view is closing
-                m_MenuItemListAdapter.updateData(m_MenuItemsList);
-
-                return true;
-            }
-        });
-
-        final android.support.v7.app.ActionBar ab = m_Activity.getSupportActionBar();
-        ab.setDisplayShowHomeEnabled(true); // show the default home button
-        ab.setDisplayHomeAsUpEnabled(true);
-        ab.setHomeAsUpIndicator(R.drawable.ic_dummy_menu);
-
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
-            return true;
-
-        } else if (id == android.R.id.home) {
-            // do nothing
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onCalendarChanged(Calendar calendar) {
-        m_Calendar.setTimeInMillis(calendar.getTimeInMillis());
-        update();
     }
 
 

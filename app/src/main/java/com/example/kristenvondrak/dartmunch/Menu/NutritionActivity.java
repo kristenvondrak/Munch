@@ -42,7 +42,6 @@ import java.util.List;
 
 public class NutritionActivity extends AppCompatActivity {
 
-
     // Main
     protected Activity m_Activity;
     protected Calendar m_Calendar;
@@ -93,7 +92,7 @@ public class NutritionActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         // Meal time
-        m_SelectedUserMeal = intent.getIntExtra(MenuFragment.EXTRA_MEAL_TIME, 0);
+        m_SelectedUserMeal = intent.getIntExtra(MenuFragment.EXTRA_USERMEAL_INDEX, 0);
         resetMealSelector();
 
         // Date
@@ -181,7 +180,7 @@ public class NutritionActivity extends AppCompatActivity {
 
     protected void updateNutrients() {
 
-        double num_servings = Constants.ServingsFracFloats.get(m_ServingsFraction) + m_ServingsWhole;
+        double num_servings = Constants.ServingsFracFloats[m_ServingsFraction] + m_ServingsWhole;
 
         setTextViewValue(m_RecipeNutrientsView, R.id.calories, getNewValue(m_Recipe.getCalories(), num_servings));
         setTextViewValue(m_RecipeNutrientsView, R.id.fat_calories, getNewValue(m_Recipe.getFatCalories(), num_servings));
@@ -208,7 +207,7 @@ public class NutritionActivity extends AppCompatActivity {
         ((ImageView)m_UserMealSelector.findViewById(R.id.usermeal_selector_icon)).setImageDrawable(img);
     }
 
-    private void resetServingsSelector() {
+    protected void resetServingsSelector() {
         m_NumberPickerWhole.setValue(m_ServingsWhole);
         m_NumberPickerFrac.setValue(m_ServingsFraction);
 
@@ -216,23 +215,6 @@ public class NutritionActivity extends AppCompatActivity {
 
     private void showMealSelectorDialog() {
 
-      /*
-  CharSequence[] choices = m_SelectorMealsList.toArray(new CharSequence[m_SelectorMealsList.size()]);
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(m_Activity, R.style.BasicAlertDialogStyle));
-        builder.setTitle("Add to Meal")
-                .setSingleChoiceItems(choices, m_SelectorMealsList.indexOf(m_SelectedUserMeal), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        m_SelectedUserMeal = which;
-                        resetMealSelector();
-                        dialog.dismiss();
-                    }
-                });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-        */
         LayoutInflater inflater = m_Activity.getLayoutInflater();
         AlertDialog.Builder builder = new AlertDialog.Builder(m_Activity);
 
@@ -297,7 +279,7 @@ public class NutritionActivity extends AppCompatActivity {
 
         if (id == R.id.action_add) {
             // Add recipe to diary and return to previous activity
-            float fraction = Constants.ServingsFracFloats.get(m_ServingsFraction);
+            float fraction = Constants.ServingsFracFloats[m_ServingsFraction];
             ParseAPI.addDiaryEntry(m_Calendar,
                     ParseUser.getCurrentUser(),
                     m_Recipe,
