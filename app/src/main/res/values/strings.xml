@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">DartMunch</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="action_search">Search</string>
+    <string name="search_hint">Search for food items</string>
+    <string name="title_activity_search_results">SearchResults</string>
+    <string name="title_activity_nutrition">Nutrition Info</string>
+    <string name="action_add">Add</string>
+    <string name="dialog_meal_selector_title">Add To Meal</string>
+    <string name="action_calendar">Date</string>
+
+
+    <!-- Strings related to attemptLogin -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <!--   <string name="error_invalid_password">This password is too short</string> -->
+    <string name="error_invalid_password">This password invalid</string>
+
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_invalid_confirm_password">This password does not match</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+    completions."
+    </string>
+    <string name="action_log_in">Log In</string>
+    <string name="action_sign_up">Sign Up</string>
+    <string name="action_forgot_password">Forgot Password?</string>
+    <string name="title_activity_new_login">Sign in</string>
+    <string name="prompt_confirm_password">Confirm Password</string>
+    <string name="action_sign_up_short">Signup</string>
+    <string name="action_to_sign_up">No account yet? <b>Sign up.</b></string>
+    <string name="action_to_log_in">Already signed up? <b>Log in.</b></string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_add_food">Add Food</string>
+    <string name="action_show_password">show</string>
+    <string name="action_hide_password">Hide</string>
+    <string name="action_date">Today</string>
+    <string name="action_save">Save</string>
+    <string name="action_delete">Delete</string>
+    <string name="toast_food_deleted">Removed from diary!</string>
+    <string name="toast_food_saved">Saved!</string>
+    <string name="toast_food_added">Added to diary!</string>
+    <string name="mymeals_message">Add selected foods from this meal to my diary.</string>
+    <string name="title_activity_custom_food">Create Custom Food</string>
+    <string name="input_name">Name (Required)</string>
+    <string name="input_calories">Calories (Required)</string>
+    <string name="input_fat_calories">Calories from Fat</string>
+    <string name="input_sat_fat">Saturated Fat (g)</string>
+    <string name="input_fat">Fat (g)</string>
+    <string name="input_cholesterol">Cholesterol (mg)</string>
+    <string name="input_sodium">Sodium (mg)</string>
+    <string name="input_carbs">Carbohydrates (g)</string>
+    <string name="input_fiber">Fiber (g)</string>
+    <string name="input_sugars">Sugars (g)</string>
+    <string name="input_protein">Protein (g)</string>
+    <string name="database_search_prompt">Search the USDA Database for Foods</string>
+</resources>

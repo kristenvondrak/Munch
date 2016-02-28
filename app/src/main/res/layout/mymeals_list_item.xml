@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp">
+    <!-- android:background="@drawable/white_to_gray_on_press" -->
+
+    <ImageView
+        android:id="@+id/meal_icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/sunrise_filled"
+        android:tint="@color/diaryAccent"
+        android:layout_gravity="center_vertical" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:layout_toRightOf="@id/meal_icon"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/meal_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="17dp"
+            android:textColor="@color/black"
+            android:text="Breakfast"/>
+
+        <TextView
+            android:id="@+id/meal_items_list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="270dp"
+            android:singleLine="true"
+            android:textSize="16dp"
+            android:textColor="@color/aluminum"
+            android:text="Bread, Chicken Breast, Pesto Sauce, Spinach.."/>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/item_info_btn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_add_circle_white"
+        android:tint="@color/lightGray"
+        android:layout_gravity="center_vertical"/>
+
+</RelativeLayout>

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.kristenvondrak.dartmunch.MyFoods.CustomFoodActivity"
+    tools:showIn="@layout/activity_custom_food">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+
+        <!-- Dummy item to prevent AutoCompleteTextView from receiving focus -->
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+
+        <!-- Name -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+            <EditText android:id="@+id/input_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:hint="@string/input_name" />
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Calories -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+            <EditText android:id="@+id/input_calories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="@string/input_calories"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Fat Calories -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+            <EditText android:id="@+id/input_fat_calories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"                android:hint="@string/input_fat_calories"/>
+        </android.support.design.widget.TextInputLayout>
+
+
+
+        <!-- Fat Calories -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+            <EditText android:id="@+id/input_fat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"                android:hint="@string/input_fat"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Saturated Fat -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+            <EditText android:id="@+id/input_saturated_fat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"                android:hint="@string/input_sat_fat"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Cholesterol -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+            <EditText android:id="@+id/input_cholesterol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"                android:hint="@string/input_cholesterol"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Sodium -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+            <EditText android:id="@+id/input_sodium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"                android:hint="@string/input_sodium"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Carbs -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+            <EditText android:id="@+id/input_carbs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"                android:hint="@string/input_carbs"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Fiber -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+            <EditText android:id="@+id/input_fiber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"                android:hint="@string/input_fiber"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Sugars -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+            <EditText android:id="@+id/input_sugars"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"                android:hint="@string/input_sugars"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <!-- Protein -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+            <EditText android:id="@+id/input_protein"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:hint="@string/input_protein"/>
+        </android.support.design.widget.TextInputLayout>
+
+
+    </LinearLayout>
+
+
+
+</ScrollView>

@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.kristenvondrak.dartmunch.Menu.NutritionActivity"
+    tools:showIn="@layout/activity_nutrition"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/nutrients"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="3dp">
+
+        <!-- Dummy item to prevent AutoCompleteTextView from receiving focus -->
+        <View
+            android:id="@+id/dummy_focus"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0dp"
+            android:layout_height="0dp"/>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:textSize="24dp"
+            android:textColor="@color/black"
+            android:layout_margin="10dp" />
+
+
+        <LinearLayout
+            android:layout_below="@id/name"
+            android:id="@+id/nutrients_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="left">
+
+                <TextView
+                    android:id="@+id/calories"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="300"
+                    android:textSize="30dp"
+                    android:textColor="@color/black"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Calories"
+                    android:textColor="@color/black"
+                    android:textSize="11dp"
+                    android:layout_gravity="center"
+                    android:paddingTop="5dp"/>
+
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:stretchColumns="*">
+
+                <TableRow>
+                    <TextView
+                        style="@style/NutritionTitle"
+                        android:text="Cals from Fat"/>
+
+                    <TextView
+                        android:id="@+id/fat_calories"
+                        style="@style/NutritionValue" />
+                </TableRow>
+
+
+                <TableRow>
+                    <TextView
+                        style="@style/NutritionTitle"
+                        android:text="Total Fat"/>
+
+                    <TextView
+                        android:id="@+id/total_fat"
+                        style="@style/NutritionValue" />
+
+                </TableRow>
+                <TableRow>
+                    <TextView
+                        style="@style/NutritionSubtitle"
+                        android:text="Saturated Fat"/>
+
+                    <TextView
+                        android:id="@+id/saturated_fat"
+                        style="@style/NutritionSubvalue" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        style="@style/NutritionTitle"
+                        android:text="Cholesterol"/>
+
+                    <TextView
+                        android:id="@+id/cholesterol"
+                        style="@style/NutritionValue" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        style="@style/NutritionTitle"
+                        android:text="Sodium"/>
+
+                    <TextView
+                        android:id="@+id/sodium"
+                        style="@style/NutritionValue" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        style="@style/NutritionTitle"
+                        android:text="Total Carbs"/>
+
+                    <TextView
+                        android:id="@+id/carbs"
+                        style="@style/NutritionValue" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        style="@style/NutritionSubtitle"
+                        android:text="Fiber"/>
+
+                    <TextView
+                        android:id="@+id/fiber"
+                        style="@style/NutritionSubvalue" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        style="@style/NutritionSubtitle"
+                        android:text="Sugars"/>
+
+                    <TextView
+                        android:id="@+id/sugars"
+                        style="@style/NutritionSubvalue" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        style="@style/NutritionTitle"
+                        android:text="Protein"/>
+
+                    <TextView
+                        android:id="@+id/protein"
+                        style="@style/NutritionValue" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        style="@style/NutritionTitle"
+                        android:text="Serving Size"/>
+
+                    <TextView
+                        android:id="@+id/serving_size"
+                        style="@style/NutritionValue" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        style="@style/NutritionTitle"
+                        android:text="Serving Text"/>
+
+                    <TextView
+                        android:id="@+id/serving_text"
+                        style="@style/NutritionValue"
+                        android:text="8 ounces weight"/>
+                </TableRow>
+
+            </TableLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/serving_size_selector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@color/lightIron">
+
+            <NumberPicker
+                android:layout_weight="1"
+                android:id="@+id/servings_picker_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:scaleX="0.7"
+                android:scaleY="0.7">
+            </NumberPicker>
+
+            <NumberPicker
+                android:layout_weight="1"
+                android:id="@+id/servings_picker_fraction"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:scaleX="0.7"
+                android:scaleY="0.7">
+            </NumberPicker>
+
+
+            <TextView
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Servings"
+                android:textSize="19dp"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+
+        <include layout="@layout/meal_selector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp" />
+
+    </LinearLayout>
+
+</ScrollView>

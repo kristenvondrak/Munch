@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- android:background="@drawable/white_to_gray_on_press" -->
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/item_name_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textSize="17dp"
+            android:text="Chicken Noodle Soup"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/item_cals_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:text="90 cals"
+            android:textColor="@color/black"/>
+
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/item_info_btn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/info"
+        android:tint="@color/lightGray"
+        android:layout_gravity="center_vertical"/>
+
+</RelativeLayout>
+

@@ -1,0 +1,114 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.example.kristenvondrak.main.DiaryFragment">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="2dp"
+        android:paddingBottom="5dp"
+        android:background="@color/lightIron"
+        android:stretchColumns="*">
+
+        <!-- Calorie Names -->
+        <TableRow
+            android:id="@+id/table_headers"
+            android:paddingBottom="2dp">
+
+            <TextView
+                android:layout_weight="5"
+                android:textSize="10dp"
+                android:textColor="@color/monsoon"
+                android:gravity="center"
+                android:text="Budget"/>
+
+            <TextView
+                android:layout_weight="5"
+                android:textSize="10dp"
+                android:textColor="@color/monsoon"
+                android:gravity="center"
+                android:text="Food"/>
+
+            <TextView
+                android:id="@+id/remaining_header"
+                android:layout_weight="5"
+                android:textSize="10dp"
+                android:textColor="@color/monsoon"
+                android:gravity="center"
+                android:text="Under"/>
+        </TableRow>
+
+        <!-- Calorie Names -->
+        <TableRow
+            android:id="@+id/table_values">
+
+            <TextView
+                android:id="@+id/budget_cals"
+                style="@style/DiaryTableValue"
+                android:text="2000"/>
+
+            <TextView
+                android:id="@+id/food_cals"
+                style="@style/DiaryTableValue"
+                android:text="350"/>
+
+            <!--style="@style/DiaryTableRemainder"-->
+            <TextView
+                android:id="@+id/remaining_cals"
+                style="@style/DiaryTableRemainder"
+                android:text="1,070"/>
+        </TableRow>
+
+    </TableLayout>
+
+
+    <!-- Content -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/diary_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:listSelector="@color/lightIron"
+            android:dividerHeight="0dp"
+            android:divider="@null"
+            android:requiresFadingEdge="vertical"
+            android:fadingEdgeLength="30dp">
+        </ListView>
+
+        <ProgressBar
+            android:id="@+id/progress_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:progressTint="@color/aluminum"
+            android:visibility="gone"/>
+
+        <View
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="60dp"
+            android:layout_gravity="bottom|end"
+            android:background="@drawable/gradient_white"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_plus"
+            app:backgroundTint="@color/diaryAccent"/>
+
+    </FrameLayout>
+
+
+</LinearLayout>

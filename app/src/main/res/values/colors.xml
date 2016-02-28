@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Main -->
+    <color name="colorPrimary">#00BFA5</color>
+    <color name="colorPrimaryDark">#00897B</color>
+    <color name="colorPrimaryDarker">#00796B</color>
+    <color name="colorTabs">#EEEEEE</color>
+    <color name="accent">#FFFFFF</color>
+    <color name="colorAccent">#FFFFFF</color>
+
+
+    <!-- Login/Signup -->
+    <color name="loginOverlay">#33FFFFFF</color>
+    <color name="loginButton">#4DFFFFFF</color>
+
+    <!-- Basic -->
+    <color name="transparent">#00000000</color>
+    <color name="lightGray">#bdb6b6b6</color>
+    <color name="gray">#bd7f7f7f</color>
+    <color name="darkGray">#bd000000</color>
+    <color name="red">#FF0000</color>
+
+
+    <color name="black">#000000</color>
+    <color name="jet">#222222</color>
+    <color name="oil">#333333</color>
+    <color name="monsoon">#777777</color>
+    <color name="jumbo">#888888</color>
+    <color name="aluminum">#999999</color>
+    <color name="base">#AAAAAA</color>
+    <color name="iron">#CCCCCC</color>
+    <color name="lightIron">#44b6b6b6</color>
+    <color name="white">#FFFFFF</color>
+    <color name="transparentWhite">#BFFFFFFF</color>
+    <color name="transparentButton">#26FFFFFF</color>
+
+
+    <!-- Diary -->
+    <color name="calsUnder">#1B5E20</color>
+    <color name="calsOver">#FF0000</color>
+    <color name="diaryAccent">#FFA000</color>
+
+</resources>

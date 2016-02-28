@@ -1,0 +1,106 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context="com.example.kristenvondrak.main.MenuFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Venue Tabs -->
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:stretchColumns="*">
+            <TableRow
+                android:id="@+id/venue_tabs_row">
+            </TableRow>
+        </TableLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray" />
+
+        <!-- Meal Tabs -->
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:stretchColumns="*"
+            android:shrinkColumns="*">
+            <TableRow
+                android:id="@+id/mealtime_tabs_row">
+            </TableRow>
+        </TableLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray" />
+
+
+        <!-- Menu Tabs -->
+        <HorizontalScrollView
+            android:id="@+id/category_tabs_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbarAlwaysDrawHorizontalTrack="false"
+            android:scrollbarAlwaysDrawVerticalTrack="false">
+
+            <LinearLayout
+                android:id="@+id/category_tabs_ll"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+        </HorizontalScrollView>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray"
+            android:layout_marginBottom="5dp"/>
+
+
+        <!-- Menu Contents -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- android:listSelector="@color/light_gray"-->
+            <!-- List -->
+            <ListView
+                android:id="@+id/food_items_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:listSelector="@color/lightIron"
+                android:choiceMode="singleChoice"
+                android:requiresFadingEdge="vertical"
+                android:fadingEdgeLength="30dp"
+                android:layout_marginBottom="5dp">
+            </ListView>
+
+
+            <!-- Empty List Icon -->
+            <include layout="@layout/empty_food_list" />
+
+            <!-- Progress Spinner -->
+            <ProgressBar
+                android:id="@+id/progress_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"/>
+
+        </FrameLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

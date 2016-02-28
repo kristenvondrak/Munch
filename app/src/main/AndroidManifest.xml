@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.kristenvondrak.dartmunch">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- To auto-complete the email text field in the attemptLogin form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <application
+        android:name=".Parse.ParseApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="APPLICATION ID" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="CLIENT KEY" />
+
+        <!-- Log in -->
+        <activity
+            android:name=".Main.LoginActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.Dark">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Sign up -->
+        <activity
+            android:name=".Main.SignupActivity"
+            android:label="@string/title_activity_nutrition"
+            android:theme="@style/AppTheme.Dark" />
+
+        <!-- Main -->
+        <activity
+            android:name=".Main.MainActivity"
+            android:alwaysRetainTaskState="true"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.Dark" />
+
+        <!-- View Nutrition Info -->
+        <activity
+            android:name=".Menu.NutritionActivity"
+            android:label="Nutrition Info"
+            android:launchMode="singleTop"
+            android:parentActivityName=".Main.MainActivity"
+            android:theme="@style/AppTheme.Nutrition" />
+
+        <!-- Edit Food -->
+        <activity
+            android:name=".Diary.EditFoodActivity"
+            android:label="Edit Food"
+            android:launchMode="singleTop"
+            android:parentActivityName=".Main.MainActivity"
+            android:theme="@style/AppTheme.Nutrition" />
+
+        <!-- Add Food -->
+        <activity
+            android:name=".Diary.AddFoodActivity"
+            android:label="@string/title_activity_add_food"
+            android:parentActivityName=".Main.MainActivity"
+            android:theme="@style/AppTheme.AddFood" />
+
+        <!-- Add Meal -->
+        <activity
+            android:name=".MyMeals.AddMealActivity"
+            android:label="@string/title_activity_add_food"
+            android:parentActivityName=".Diary.AddFoodActivity"
+            android:theme="@style/AppTheme.AddFood" />
+
+        <!-- Add Custom Food -->
+        <activity
+            android:name=".MyFoods.CustomFoodActivity"
+            android:label="@string/title_activity_custom_food"
+            android:theme="@style/AppTheme.CustomFood"></activity>
+
+
+        <!-- View Nutrition Info (from DB) -->
+        <activity
+            android:name=".Database.DbNutritionActivity"
+            android:label="Nutrition Info"
+            android:launchMode="singleTop"
+            android:parentActivityName=".Diary.AddFoodActivity"
+            android:theme="@style/AppTheme.Nutrition" />
+
+    </application>
+
+</manifest>

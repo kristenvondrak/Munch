@@ -1,0 +1,238 @@
+<resources xmlns:android="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="navigationIcon">@drawable/calendar</item>
+    </style>
+
+
+    <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/accent</item>
+
+        <item name="android:windowBackground">@color/colorPrimary</item>
+
+        <item name="colorControlNormal">@color/transparentWhite</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+        <item name="android:textColorHint">@color/transparentWhite</item>
+
+        <item name="colorButtonNormal">@color/colorPrimaryDarker</item>
+        <item name="android:colorButtonNormal">@color/colorPrimaryDarker</item>
+
+    </style>
+
+    <style name="AppTheme.AddFood" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/diaryAccent</item>
+        <item name="colorControlNormal">@color/lightIron</item>
+        <item name="colorControlActivated">@color/white</item>
+
+        <item name="android:textColorHint">@color/transparentWhite</item>
+        <item name="android:editTextColor">@color/white</item>
+
+        <item name="android:windowBackground">@android:color/background_light</item>
+
+    </style>
+
+    <style name="AppTheme.CustomFood" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/diaryAccent</item>
+        <item name="colorControlNormal">@color/lightIron</item>
+        <item name="colorControlActivated">@color/diaryAccent</item>
+
+        <item name="android:textColorHint">@color/aluminum</item>
+        <item name="android:editTextColor">@color/aluminum</item>
+        <item name="android:textColor">@color/black</item>
+
+        <item name="android:windowBackground">@android:color/background_light</item>
+
+    </style>
+
+    <style name="AppTheme.Nutrition" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+
+        <item name="android:windowBackground">@color/colorPrimary</item>
+
+        <item name="colorControlNormal">@color/aluminum</item>
+        <item name="colorControlActivated">@color/aluminum</item>
+        <item name="colorControlHighlight">@color/colorPrimaryDarker</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:editTextColor">@color/black</item>
+
+        <item name="colorButtonNormal">@color/colorPrimaryDark</item>
+        <item name="android:colorButtonNormal">@color/colorPrimaryDark</item>
+
+    </style>
+
+    <style name="DeleteDialogStyle" parent="@android:style/Theme.Holo.Light.Dialog">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="AppTheme.Diary" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/diaryAccent</item>
+
+        <item name="android:windowBackground">@color/colorPrimary</item>
+
+        <item name="colorControlNormal">@color/aluminum</item>
+        <item name="colorControlActivated">@color/aluminum</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:editTextColor">@color/black</item>
+
+        <item name="colorButtonNormal">@color/diaryAccent</item>
+        <item name="android:colorButtonNormal">@color/diaryAccent</item>
+
+    </style>
+
+
+    <style name="AppTheme.Dark.Dialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/white</item>
+        <item name="android:textColorPrimary">@color/iron</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+
+    <style name="CustomDialog" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorSecondary">@color/lightGray</item>
+    </style>
+
+
+    <style name="BasicAlertDialogStyle" parent="android:Theme.Holo.Light.Dialog">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/colorPrimaryDarker</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/base</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+
+    <style name="HeaderText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+
+    <style name="LeftTextHeaderButton" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">19dp</item>
+        <item name="android:textColor">@color/text_view_white_to_gray</item>
+        <item name="android:layout_gravity">center_vertical|left</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+
+    <style name="RightTextHeaderButton" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">19dp</item>
+        <item name="android:textColor">@color/text_view_white_to_gray</item>
+        <item name="android:layout_gravity">center_vertical|right</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
+
+
+    <style name="RightImageHeaderButton" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:tint">@color/white</item>
+        <item name="android:layout_gravity">center_vertical|right</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
+
+    <style name="LeftImageHeaderButton" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">25dp</item>
+        <item name="android:layout_height">25dp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:tint">@color/white</item>
+        <item name="android:layout_gravity">center_vertical|left</item>
+        <item name="android:layout_marginLeft">10dp</item>
+    </style>
+
+
+    <!-- Nutrition -->
+    <style name="NutritionTitle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">17dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="NutritionSubtitle" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">17dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">5dp</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:textColor">@color/lightGray</item>
+    </style>
+
+    <style name="NutritionValue" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">17dp</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:gravity">end</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="NutritionSubvalue" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">17dp</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:gravity">end</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textColor">@color/lightGray</item>
+    </style>
+
+    <style name="DiaryTableValue" parent="@android:style/TextAppearance.Medium">
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
+    <style name="DiaryTableRemainder" parent="@android:style/TextAppearance.Medium">
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+
+</resources>

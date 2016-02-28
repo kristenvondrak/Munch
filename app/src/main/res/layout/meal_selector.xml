@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/usermeal_selector"
+    android:layout_alignParentBottom="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <android.support.design.widget.FloatingActionButton
+        android:visibility="gone"
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@drawable/sunrise_filled"
+        android:scaleType="centerCrop"
+        android:tint="@color/white"
+        android:layout_margin="10dp"/>
+
+    <ImageView
+        android:id="@+id/usermeal_selector_icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/sunrise_filled"
+        android:tint="@color/diaryAccent"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:gravity="center"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
+
+    <TextView
+        android:id="@+id/usermeal_selector_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Breakfast"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/diaryAccent"
+        android:layout_gravity="center_vertical" />
+
+</LinearLayout>
+
+
+
+
+

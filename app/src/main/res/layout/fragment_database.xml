@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/db_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/lightGray"
+        android:dividerHeight="1dp">
+    </ListView>
+
+    <TextView
+        android:id="@+id/db_prompt_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_margin="50dp"
+        android:textColor="@color/aluminum"
+        android:textSize="30dp"
+        android:text="@string/database_search_prompt"/>
+
+    <include layout="@layout/empty_food_list" />
+
+    <ProgressBar
+        android:id="@+id/progress_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:progressTint="@color/aluminum"
+        android:visibility="gone"/>
+
+</FrameLayout>
+
