@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.kristenvondrak.main.DiaryFragment">
+
+
+    <!-- Row: Create new custom food -->
+    <LinearLayout
+        android:id="@+id/create_new_food_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/lightIron">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add to Meal:"
+            android:textSize="23dp"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"
+            android:textColor="@color/diaryAccent"
+            android:layout_gravity="center_vertical"
+            android:layout_centerVertical="true"/>
+
+        <Spinner
+            android:id="@+id/meal_time_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|end"
+            android:gravity="center_vertical|end"
+            android:paddingRight="10dp"
+            android:backgroundTint="@color/transparent">
+
+        </Spinner>
+
+
+    </LinearLayout>
+
+    <!-- List -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/lightGray"
+            android:dividerHeight="1dp">
+        </ListView>
+
+    </FrameLayout>
+
+</LinearLayout>

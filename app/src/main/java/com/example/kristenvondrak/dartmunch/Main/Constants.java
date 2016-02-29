@@ -62,8 +62,8 @@ public class Constants {
     }
 
 
-    public static final String DATE_FORMAT_EXTRA = "yyyy,EEE,LLL,d";
     public static final String DATE_FORMAT_DISPLAY = "EEE, LLL d";
+    public static final String DATE_FORMAT_STATS = "LLL d";
 
     public enum Venue {Foco, Hop, Novack, Collis};
 

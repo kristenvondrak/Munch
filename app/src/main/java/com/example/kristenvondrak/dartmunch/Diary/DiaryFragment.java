@@ -1,7 +1,10 @@
 package com.example.kristenvondrak.dartmunch.Diary;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -18,8 +21,11 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.example.kristenvondrak.dartmunch.Main.Constants;
 import com.example.kristenvondrak.dartmunch.Main.MainTabFragment;
 import com.example.kristenvondrak.dartmunch.Main.OnDateChangedListener;
 import com.example.kristenvondrak.dartmunch.Main.Utils;
@@ -37,7 +43,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class DiaryFragment extends Fragment implements OnDateChangedListener, MainTabFragment {
+public class DiaryFragment extends Fragment implements MainTabFragment {
 
     public static final String TAG = "DiaryFragment";
 
@@ -48,9 +54,6 @@ public class DiaryFragment extends Fragment implements OnDateChangedListener, Ma
 
     private AppCompatActivity m_Activity;
 
-    // For communication with parent activity
-    public OnDateChangedListener m_Callback;
-
     // Main
     private DiaryListAdapter m_DiaryListAdapter;
     private ListView m_DiaryListView;
@@ -59,7 +62,6 @@ public class DiaryFragment extends Fragment implements OnDateChangedListener, Ma
 
     // Date
     private Calendar m_Calendar = Calendar.getInstance();
-    private LayoutInflater m_Inflater;
     private DatePickerDialog.OnDateSetListener m_DatePickerListener;
 
     // Summary calorie
@@ -85,7 +87,7 @@ public class DiaryFragment extends Fragment implements OnDateChangedListener, Ma
 
         m_Activity = (AppCompatActivity) getActivity();
 
-        setHasOptionsMenu(true); // need for search
+        setHasOptionsMenu(true);
         initViews(v);
         initListeners();
 
@@ -103,24 +105,9 @@ public class DiaryFragment extends Fragment implements OnDateChangedListener, Ma
     @Override
     public void onResume() {
         super.onResume();
-        update();
+        queryUserMeals();
     }
 
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
-        //Log.d("** menu **", "on attach, date: " + Utils.getDisplayStringFromCal(m_Calendar));
-        // This makes sure that the container activity has implemented
-        // the callback interface. If not, it throws an exception
-        try {
-            m_Callback = (OnDateChangedListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnHeadlineSelectedListener");
-        }
-    }
 
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
@@ -142,16 +129,14 @@ public class DiaryFragment extends Fragment implements OnDateChangedListener, Ma
 
         // Allow user to pick date from date picker dialog
         if (id == R.id.action_calendar) {
-            new DatePickerDialog(m_Activity, R.style.BasicAlertDialog,
+         /*   new DatePickerDialog(m_Activity, R.style.BasicAlertDialog,
                     m_DatePickerListener, m_Calendar.get(Calendar.YEAR),
-                    m_Calendar.get(Calendar.MONTH), m_Calendar.get(Calendar.DAY_OF_MONTH)).show();
+                    m_Calendar.get(Calendar.MONTH), m_Calendar.get(Calendar.DAY_OF_MONTH)).show(); */
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
-
 
 
     private void initViews(View v) {
@@ -192,15 +177,17 @@ public class DiaryFragment extends Fragment implements OnDateChangedListener, Ma
                 m_Calendar.set(Calendar.YEAR, selectedYear);
                 m_Calendar.set(Calendar.MONTH, selectedMonth);
                 m_Calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
-                m_Callback.onCalendarChanged(m_Calendar);
-                update();
+                queryUserMeals();
             }
         };
     }
 
-    public void update() {
-        queryUserMeals(m_Calendar);
+
+    public void update(Calendar calendar) {
+        m_Calendar.setTimeInMillis(calendar.getTimeInMillis());
+        queryUserMeals();
     }
+
 
     private void updateCalorieSummary(List<UserMeal> list) {
         // Recalculate the total calories consumed
@@ -219,18 +206,18 @@ public class DiaryFragment extends Fragment implements OnDateChangedListener, Ma
         m_RemainingTextView.setText(Integer.toString(total));
         m_RemainingTextView.setTextColor(color);
 
-        String header = total >= 0?  "Under" : "Over";
+        String header = total >= 0 ? "Under" : "Over";
         m_RemainingHeaderTextView.setText(header);
 
 
     }
 
-    private void queryUserMeals(final Calendar cal) {
+    private void queryUserMeals() {
         Utils.showProgressSpinner(m_ProgressSpinner);
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("UserMeal");
-        query.whereGreaterThan("date", Utils.getDateBefore(cal));
-        query.whereLessThan("date", Utils.getDateAfter(cal));
+        query.whereGreaterThan("date", Utils.getDateBefore(m_Calendar));
+        query.whereLessThan("date", Utils.getDateAfter(m_Calendar));
         query.whereEqualTo("user", ParseUser.getCurrentUser());
         query.include("entries.recipe");
         query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
@@ -245,7 +232,7 @@ public class DiaryFragment extends Fragment implements OnDateChangedListener, Ma
                 } else {
                     Log.d(TAG, "Error getting user meals: " + e.getMessage());
                 }
-                m_DiaryListAdapter.updateData(userMealList, cal);
+                m_DiaryListAdapter.updateData(userMealList, m_Calendar);
                 updateCalorieSummary(userMealList);
                 Utils.hideProgressSpinner(m_ProgressSpinner);
             }
@@ -253,10 +240,27 @@ public class DiaryFragment extends Fragment implements OnDateChangedListener, Ma
     }
 
 
-    @Override
-    public void onCalendarChanged(Calendar calendar) {
-        m_Calendar.setTimeInMillis(calendar.getTimeInMillis());
-        update();
-    }
 
+    private void showMealSelectorDialog() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(m_Activity, R.style.BasicAlertDialog);
+
+        String[] list = new String[Constants.UserMeals.values().length];
+        for (int i = 0; i < list.length; i++) {
+            list[i] = Constants.UserMeals.values()[i].name();
+        }
+        builder .setTitle(R.string.dialog_meal_selector_title)
+                .setItems(list, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Pass the meal time and date
+                        Intent intent = new Intent(m_Activity, AddFoodActivity.class);
+                        intent.putExtra(DiaryFragment.EXTRA_USERMEAL_INDEX, which);
+                        intent.putExtra(DiaryFragment.EXTRA_DATE, m_Calendar.getTimeInMillis());
+                        m_Activity.startActivityForResult(intent, Constants.REQUEST_ADD_FROM_DIARY);
+                    }
+                });
+
+        builder.create().show();
+    }
 }
+

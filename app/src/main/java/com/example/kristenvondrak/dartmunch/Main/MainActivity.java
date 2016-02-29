@@ -27,25 +27,30 @@ import android.widget.Toast;
 import com.example.kristenvondrak.dartmunch.Diary.DiaryFragment;
 import com.example.kristenvondrak.dartmunch.Diary.EditFoodActivity;
 import com.example.kristenvondrak.dartmunch.Menu.MenuFragment;
+import com.example.kristenvondrak.dartmunch.Menu.MenuFragmentHost;
 import com.example.kristenvondrak.dartmunch.R;
+import com.example.kristenvondrak.dartmunch.Stats.StatsFragment;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements OnDateChangedListener {
+public class MainActivity extends AppCompatActivity implements MenuFragmentHost {
 
     public Activity m_Activity;
     public Calendar m_Calendar;
     private TabLayout m_TabLayout;
-
+    private int m_CurrentTab = 0;
 
     // Toolbar
     private Toolbar m_Toolbar;
+    private View m_DateToolbar;
+    //private View m_StatsToolbar;
     private ImageView m_NextDateButton;
     private ImageView m_PreviousDateButton;
     private TextView m_CurrentDateTextView;
+    //private TextView m_StatsDateTextView;
     private DatePickerDialog.OnDateSetListener m_DatePickerListener;
 
     private int[] m_TabIcons = {
@@ -114,15 +119,28 @@ public class MainActivity extends AppCompatActivity implements OnDateChangedList
 
             @Override
             public void onPageSelected(int position) {
+                m_CurrentTab = position;
+                
+                if (position == 2)
+                    m_DateToolbar.setVisibility(View.INVISIBLE);
+                else
+                    m_DateToolbar.setVisibility(View.VISIBLE);
+
+                // Change tab icon colors
                 for (int i = 0; i < m_TabIcons.length; i++) {
                     int tint = i == position ? getResources().getColor(R.color.colorPrimaryDark) : getResources().getColor(R.color.lightGray);
                     m_TabLayout.getTabAt(i).getIcon().setTint(tint);
                 }
 
-                Fragment fragment = getFragments().get(position);
+                // Update curren
+                Fragment fragment = getCurrentFragment();
                 if (fragment instanceof MainTabFragment) {
-                    ((MainTabFragment) fragment).update();
+                    ((MainTabFragment) fragment).update(m_Calendar);
                 }
+
+
+
+
             }
 
             @Override
@@ -142,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements OnDateChangedList
         m_NextDateButton = (ImageView) toolbar.findViewById(R.id.next_date_btn);
         m_PreviousDateButton = (ImageView) toolbar.findViewById(R.id.prev_date_btn);
         m_CurrentDateTextView = (TextView) toolbar.findViewById(R.id.date_text_view);
+        m_DateToolbar = toolbar.findViewById(R.id.date_selector);
 
         SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT_DISPLAY, Locale.US);
         m_CurrentDateTextView.setText(sdf.format(m_Calendar.getTime()));
@@ -218,6 +237,11 @@ public class MainActivity extends AppCompatActivity implements OnDateChangedList
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public int getMode() {
+        return MenuFragment.MENU;
+    }
+
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -273,6 +297,9 @@ public class MainActivity extends AppCompatActivity implements OnDateChangedList
             else if (position == 1)
                 return new DiaryFragment();
 
+            else if (position == 2)
+                return new StatsFragment();
+
             return PlaceholderFragment.newInstance(position + 1);
         }
 
@@ -321,25 +348,16 @@ public class MainActivity extends AppCompatActivity implements OnDateChangedList
         return getSupportFragmentManager().getFragments();
     }
 
-    /*
-     * Called from diary
-     */
-    @Override
-    public void onCalendarChanged(Calendar calendar) {
-        long time = calendar.getTimeInMillis();
-        m_Calendar.setTimeInMillis(time);
-        onTimeChange();
+    private Fragment getCurrentFragment() {
+        return getFragments().get(m_CurrentTab);
     }
 
     private void onTimeChange() {
         SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT_DISPLAY, Locale.US);
         m_CurrentDateTextView.setText(sdf.format(m_Calendar.getTime()));
-
-        List<Fragment> fragmentList = getFragments();
-        for (Fragment fragment : fragmentList) {
-            if (fragment instanceof OnDateChangedListener) {
-                ((OnDateChangedListener) fragment).onCalendarChanged(m_Calendar);
-            }
+        Fragment fragment = getCurrentFragment();
+        if (fragment instanceof MainTabFragment) {
+            ((MainTabFragment) fragment).update(m_Calendar);
         }
     }
 

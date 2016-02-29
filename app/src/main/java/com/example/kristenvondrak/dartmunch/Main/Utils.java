@@ -177,4 +177,35 @@ public class Utils {
         return stringValue + units;
     }
 
+    public static String getDisplayStringFromCal(Calendar cal) {
+        SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT_DISPLAY, Locale.US);
+        return sdf.format(cal.getTime());
+    }
+
+    public static String getWeekDisplayFromCal(Calendar cal) {
+        SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT_STATS, Locale.US);
+        return "Week of " + sdf.format(cal.getTime());
+    }
+
+    public static int getDateOffset(int day) {
+        switch (day) {
+            case Calendar.MONDAY:
+                return 0;
+            case Calendar.TUESDAY:
+                return 1;
+            case Calendar.WEDNESDAY:
+                return 2;
+            case Calendar.THURSDAY:
+                return 3;
+            case Calendar.FRIDAY:
+                return 4;
+            case Calendar.SATURDAY:
+                return 5;
+            case Calendar.SUNDAY:
+                return 6;
+            default:
+                return 0;
+        }
+    }
+
 }

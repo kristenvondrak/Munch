@@ -58,4 +58,5 @@
     <string name="input_sugars">Sugars (g)</string>
     <string name="input_protein">Protein (g)</string>
     <string name="database_search_prompt">Search the USDA Database for Foods</string>
+    <string name="action_date_next">next day</string>
 </resources>

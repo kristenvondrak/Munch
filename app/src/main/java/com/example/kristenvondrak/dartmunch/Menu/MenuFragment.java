@@ -40,8 +40,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class MenuFragment extends Fragment implements
-        SearchView.OnQueryTextListener, OnDateChangedListener, MainTabFragment {
+public class MenuFragment extends Fragment implements SearchView.OnQueryTextListener, MainTabFragment {
 
 
     public static final String EXTRA_RECIPE_ID = "EXTRA_RECIPE_ID";
@@ -181,10 +180,14 @@ public class MenuFragment extends Fragment implements
         if (id == R.id.action_search) {
             return true;
 
-        } else if (id == android.R.id.home && m_Mode == MENU) {
+        } else if (id == android.R.id.home) {
+            if (m_Mode == DIARY) {
+                Intent intent = new Intent();
+                m_Activity.setResult(m_Activity.RESULT_CANCELED, intent);
+                m_Activity.finish();
+            }
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -391,17 +394,15 @@ public class MenuFragment extends Fragment implements
     }
 
 
-    @Override
-    public void onCalendarChanged(Calendar calendar) {
+    // ---------------------------------------------------------------------------------- Parse
+
+    public void update(Calendar calendar) {
         m_Calendar.setTimeInMillis(calendar.getTimeInMillis());
         update();
     }
 
+    private void update() {
 
-
-    // ---------------------------------------------------------------------------------- Parse
-
-    public void update() {
         Utils.showProgressSpinner(m_ProgressSpinner);
 
         String venue = Constants.venueParseStrings
