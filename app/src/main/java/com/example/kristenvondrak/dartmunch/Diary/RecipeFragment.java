@@ -97,7 +97,10 @@ public class RecipeFragment extends Fragment implements SearchView.OnQueryTextLi
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == android.R.id.home) {
+        if (id == R.id.action_search) {
+            return true;
+
+        } else if (id == android.R.id.home) {
             Intent intent = new Intent();
             m_Activity.setResult(m_Activity.RESULT_CANCELED, intent);
             m_Activity.finish();

@@ -50,7 +50,7 @@ import com.parse.ParseUser;
 /**
  * Created by kristenvondrak on 10/21/15.
  */
-public class ProgressFragment extends Fragment implements OnChartValueSelectedListener, MainTabFragment {
+public class MacrosFragment extends Fragment implements OnChartValueSelectedListener, MainTabFragment {
 
     // Constants
     String COLOR_CARBS = "#F44336";

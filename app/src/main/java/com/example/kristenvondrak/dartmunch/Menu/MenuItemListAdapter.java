@@ -77,9 +77,6 @@ public class MenuItemListAdapter extends BaseAdapter implements Filterable{
                 //addFilteredItem(recipe);
             }
         }
-        Log.d("^^^^", "m_Data size: " + Integer.toString(m_Data.size()));
-        Log.d("^^^^", "m_FilteredData size: " + Integer.toString(m_FilteredData.size()));
-
         notifyDataSetChanged();
     }
 
@@ -239,8 +236,9 @@ public class MenuItemListAdapter extends BaseAdapter implements Filterable{
 
         /**
          * Notify about filtered list to ui
+         *
          * @param constraint text
-         * @param results filtered result
+         * @param results    filtered result
          */
         @SuppressWarnings("unchecked")
         @Override
@@ -248,32 +246,6 @@ public class MenuItemListAdapter extends BaseAdapter implements Filterable{
             if (results != null && results.count < m_Data.size())
                 updateFilteredData(((List<Recipe>) results.values));
         }
-    }
-
-
-
-    public void addItem(Recipe item) {
-        m_Data.add(item);
-        notifyDataSetChanged();
-    }
-
-    public void addSeparatorItem(final String item) {
-        m_Data.add(item);
-        // save separator position
-        m_SeparatorsSet.add(m_Data.size() - 1);
-        notifyDataSetChanged();
-    }
-
-    public void addFilteredItem(Recipe item) {
-        m_FilteredData.add(item);
-        notifyDataSetChanged();
-    }
-
-    public void addFilteredSeparatorItem(final String item) {
-        m_FilteredData.add(item);
-        // save separator position
-        m_FilteredSeparatorsSet.add(m_FilteredData.size() - 1);
-        notifyDataSetChanged();
     }
 
 }

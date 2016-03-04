@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="*">
+
+
+            <TableRow
+                android:background="@drawable/list_item_selector"
+                android:clickable="true">
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@string/gender"
+                    android:textColor="@color/black"
+                    android:textSize="19dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="Male"
+                    android:gravity="right"
+                    android:textColor="@color/diaryAccent"
+                    android:textSize="19dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightIron" />
+            </TableRow>
+
+            <TableRow
+                android:background="@drawable/list_item_selector"
+                android:clickable="true">
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@string/age"
+                    android:textColor="@color/black"
+                    android:textSize="19dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="21"
+                    android:gravity="right"
+                    android:textColor="@color/diaryAccent"
+                    android:textSize="19dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightIron" />
+            </TableRow>
+
+            <TableRow
+                android:background="@drawable/list_item_selector"
+                android:clickable="true">
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@string/weight"
+                    android:textColor="@color/black"
+                    android:textSize="19dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="160"
+                    android:gravity="right"
+                    android:textColor="@color/diaryAccent"
+                    android:textSize="19dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightIron" />
+            </TableRow>
+
+            <TableRow
+                android:background="@drawable/list_item_selector"
+                android:clickable="true">
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@string/height"
+                    android:textColor="@color/black"
+                    android:textSize="19dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="5'10''"
+                    android:gravity="right"
+                    android:textColor="@color/diaryAccent"
+                    android:textSize="19dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightIron" />
+            </TableRow>
+
+
+            <TableRow
+                android:background="@drawable/list_item_selector"
+                android:clickable="true">
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="@string/activityLevel"
+                    android:textColor="@color/black"
+                    android:textSize="19dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+
+                <TextView
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="Moderate"
+                    android:gravity="right"
+                    android:textColor="@color/diaryAccent"
+                    android:textSize="19dp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_weight="1"
+                    android:background="@color/lightIron" />
+            </TableRow>
+
+        </TableLayout>
+
+        <Button
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/lightIron"
+            android:text="@string/prefsGoal"
+            android:textSize="18dp"
+            android:textColor="@color/white"
+            android:textAllCaps="false" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp">
+
+            <com.example.kristenvondrak.dartmunch.Preferences.CircleTriSeekBar
+                android:id="@+id/picker1"
+                android:layout_gravity="center"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:background="@color/white"
+                app:pointer_halo_color_1="@color/iron"
+                app:pointer_halo_color_2="@color/iron"
+                app:pointer_halo_color_3="@color/iron"
+                app:pointer_color_1="@color/carbs"
+                app:pointer_color_2="@color/fats"
+                app:pointer_color_3="@color/protein"
+                app:wheel_color_1="@color/carbs"
+                app:wheel_color_2="@color/fats"
+                app:wheel_color_3="@color/protein" />
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+
+
+</ScrollView>

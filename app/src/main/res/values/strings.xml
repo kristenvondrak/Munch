@@ -59,4 +59,14 @@
     <string name="input_protein">Protein (g)</string>
     <string name="database_search_prompt">Search the USDA Database for Foods</string>
     <string name="action_date_next">next day</string>
+    <string name="nutrition_tab">Nutrition Stats</string>
+    <string name="logout">Logout</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="age">Age</string>
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+    <string name="activityLevel">Activity Level</string>
+    <string name="prefsGoal">Choose your goal!</string>
+
 </resources>

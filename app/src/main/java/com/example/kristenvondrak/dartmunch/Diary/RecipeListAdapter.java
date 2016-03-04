@@ -22,29 +22,29 @@ import java.util.List;
  */
 public class RecipeListAdapter extends BaseAdapter implements Filterable {
 
-    // Constants
-    private static final int TYPE_ITEM = 0;
-    private static final int TYPE_SEPARATOR = 1;
-    private static final int TYPE_MAX_COUNT = TYPE_SEPARATOR + 1;
-
     // Views
     private LayoutInflater m_Inflater;
     private RecipeFragment m_Fragment;
 
-    private List<Recipe> m_List;
-    private List<Recipe> m_FilteredList;
-    private RecentsFilter m_Filter;
+    private List<Recipe> m_List = new ArrayList<>();
+    private List<Recipe> m_FilteredList = new ArrayList<>();
+    private RecipeFilter m_Filter;
 
     public RecipeListAdapter(Activity activity, RecipeFragment fragment, List<Recipe> list) {
         m_Fragment = fragment;
         m_Inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        m_List = list;
-        m_FilteredList = list;
+        m_List.addAll(list);
+        m_FilteredList.addAll(list);
     }
 
     public void update(List<Recipe> list) {
-        m_List = list;
-        m_FilteredList = list;
+        m_List.clear();
+        m_FilteredList.clear();
+        for (Recipe r : list) {
+            m_List.add(r);
+            m_FilteredList.add(r);
+
+        }
         notifyDataSetChanged();
     }
 
@@ -85,7 +85,7 @@ public class RecipeListAdapter extends BaseAdapter implements Filterable {
     @Override
     public Filter getFilter() {
         if (m_Filter == null) {
-            m_Filter = new RecentsFilter();
+            m_Filter = new RecipeFilter();
         }
         return m_Filter;
     }
@@ -95,7 +95,7 @@ public class RecipeListAdapter extends BaseAdapter implements Filterable {
      * Custom filter for friend list
      * Filter content in friend list according to the search text
      */
-    private class RecentsFilter extends Filter {
+    private class RecipeFilter extends Filter {
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -130,6 +130,7 @@ public class RecipeListAdapter extends BaseAdapter implements Filterable {
             if (results != null && results.count < m_List.size()) {
                 m_FilteredList.clear();
                 m_FilteredList.addAll((List<Recipe>) results.values);
+                notifyDataSetChanged();
             }
 
         }

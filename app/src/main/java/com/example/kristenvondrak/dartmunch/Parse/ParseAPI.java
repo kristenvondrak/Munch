@@ -1,14 +1,17 @@
 package com.example.kristenvondrak.dartmunch.Parse;
 
 import com.example.kristenvondrak.dartmunch.Main.Utils;
+import com.parse.DeleteCallback;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.LogInCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.SignUpCallback;
 
 import java.util.ArrayList;
@@ -19,6 +22,8 @@ import java.util.List;
  * Created by kristenvondrak on 1/10/16.
  */
 public class ParseAPI {
+
+    public static final String USER_MEALS_LABEL = "userMeals";
 
     public static ParseUser getCurrentParseUser() {
         ParseUser currentUser = ParseUser.getCurrentUser();
@@ -34,6 +39,7 @@ public class ParseAPI {
         ParseUser.logOut();
         ParseUser currentUser = ParseUser.getCurrentUser(); // this will now be null
     }
+
 
     public static void addDiaryEntry(final Calendar cal, final ParseUser user, final Recipe recipe,
                                                         float servings, final String userMeal) {
@@ -82,7 +88,7 @@ public class ParseAPI {
                                      final String userMeal) {
 
         // Check if user meal exists
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("UserMeal");
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("UserMeal");
         query.whereGreaterThan("date", Utils.getDateBefore(cal));
         query.whereLessThan("date", Utils.getDateAfter(cal));
         query.whereEqualTo("user", user);
@@ -112,7 +118,37 @@ public class ParseAPI {
                     newmeal.put("entries", entries);
                     newmeal.saveInBackground();
                 }
+
+                //query.clearCachedResult();
             }
         });
+    }
+
+
+
+    public static void pinUserMeals(ParseQuery query) {
+        // Query for the latest objects from Parse.
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(final List<ParseObject> meals, ParseException e) {
+                if (e != null) {
+                    // There was an error or the network wasn't available.
+                    return;
+                }
+
+                // Release any objects previously pinned for this query.
+                ParseObject.unpinAllInBackground(USER_MEALS_LABEL, meals, new DeleteCallback() {
+                    public void done(ParseException e) {
+                        if (e != null) {
+                            // There was some error.
+                            return;
+                        }
+
+                        // Add the latest results for this query to the cache.
+                        ParseObject.pinAllInBackground(USER_MEALS_LABEL, meals);
+                    }
+                });
+            }
+        });
+
     }
 }

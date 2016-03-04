@@ -306,7 +306,7 @@ public class CaloriesFragment extends Fragment implements OnChartValueSelectedLi
                             userMealList.add((UserMeal) object);
                         }
                     } else {
-                        Log.d("ProgressFragment", "Error getting user meals: " + e.getMessage());
+                        Log.d("MacrosFragment", "Error getting user meals: " + e.getMessage());
                     }
                     current_cal = calculateCalories(userMealList);
                     Log.d("Count after calculate", Float.toString(current_cal) + "/" + Utils.getDisplayStringFromCal(m_Calendar));
@@ -341,7 +341,7 @@ public class CaloriesFragment extends Fragment implements OnChartValueSelectedLi
 //                        userMealList.add((UserMeal) object);
 //                    }
 //                } else {
-//                    Log.d("ProgressFragment", "Error getting user meals: " + e.getMessage());
+//                    Log.d("MacrosFragment", "Error getting user meals: " + e.getMessage());
 //                }
 //                current_cal = calculateCalories(userMealList);
 //                Log.d("Count after calculate", Float.toString(current_cal) + "/" + Utils.getDisplayStringFromCal(cal));

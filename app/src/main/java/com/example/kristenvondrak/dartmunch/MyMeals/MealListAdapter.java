@@ -23,6 +23,7 @@ import com.example.kristenvondrak.dartmunch.R;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -51,7 +52,7 @@ public class MealListAdapter extends BaseAdapter implements Filterable{
     private ArrayList<Object> m_FilteredData = new ArrayList<>();
     private TreeSet<Integer> m_FilteredSeparatorsSet = new TreeSet<Integer>();
 
-    private MenuFilter m_Filter;
+    private MealFilter m_Filter;
 
     public MealListAdapter(Activity activity, MyMealsFragment fragment) {
         m_Fragment = fragment;
@@ -127,14 +128,13 @@ public class MealListAdapter extends BaseAdapter implements Filterable{
         for (String d : getOrderedDates(dateMap.keySet())) {
             //addSeparatorItem(d);
             m_Data.add(d);
-            m_FilteredData.add(d);
             m_SeparatorsSet.add(m_Data.size() - 1);
+
+            m_FilteredData.add(d);
             m_FilteredSeparatorsSet.add(m_FilteredData.size() - 1);
 
             for (Constants.UserMeals m : Constants.UserMeals.values()) {
                 if (dateMap.get(d).containsKey(m.name())) {
-                    //addItem(dateMap.get(d).get(m.name()));
-
                     m_Data.add(dateMap.get(d).get(m.name()));
                     m_FilteredData.add(dateMap.get(d).get(m.name()));
                 }
@@ -209,7 +209,7 @@ public class MealListAdapter extends BaseAdapter implements Filterable{
                 break;
 
             case TYPE_SEPARATOR:
-                String date = (String) m_Data.get(position);
+                String date = (String) m_FilteredData.get(position);
                 rowView = m_Inflater.inflate(R.layout.mymeals_date_header, null);
                 TextView text = (TextView) rowView.findViewById(R.id.date_text);
                 text.setText(date);
@@ -264,7 +264,7 @@ public class MealListAdapter extends BaseAdapter implements Filterable{
     @Override
     public Filter getFilter() {
         if (m_Filter == null) {
-            m_Filter = new MenuFilter();
+            m_Filter = new MealFilter();
         }
         return m_Filter;
     }
@@ -274,10 +274,12 @@ public class MealListAdapter extends BaseAdapter implements Filterable{
      * Custom filter for friend list
      * Filter content in friend list according to the search text
      */
-    private class MenuFilter extends Filter {
+    private class MealFilter extends Filter {
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
+            String[] queries = constraint.toString().split(" ");
+
             FilterResults filterResults = new FilterResults();
             if (constraint != null && constraint.length() > 0) {
                 List<UserMeal> tempList = new ArrayList<UserMeal>();
@@ -285,14 +287,28 @@ public class MealListAdapter extends BaseAdapter implements Filterable{
                 // Search foods within the meal list
                 for (int i = 0; i < m_Data.size(); i++) {
                     if (!m_SeparatorsSet.contains(i)) {
+
                         UserMeal meal = (UserMeal) m_Data.get(i);
+
+                        List<String> keyList = new ArrayList<>();
+                        for (String q : queries)
+                             keyList.add(q);
+
                         for (DiaryEntry entry : meal.getDiaryEntries()) {
                             String name = entry.getRecipe().getName().toLowerCase();
-                            if (name.contains(constraint.toString().toLowerCase())) {
+                            for (String key : keyList) {
+                                if (name.contains(key.toLowerCase())) {
+                                    keyList.remove(key);
+                                    break;
+                                }
+                            }
+
+                            if (keyList.isEmpty()) {
                                 tempList.add(meal);
                                 break;
                             }
                         }
+
                     }
                 }
                 filterResults.count = tempList.size();

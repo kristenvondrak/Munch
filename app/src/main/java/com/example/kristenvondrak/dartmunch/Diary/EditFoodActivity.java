@@ -35,6 +35,7 @@ import com.example.kristenvondrak.dartmunch.Parse.ParseAPI;
 import com.example.kristenvondrak.dartmunch.Parse.Recipe;
 import com.example.kristenvondrak.dartmunch.Parse.UserMeal;
 import com.example.kristenvondrak.dartmunch.R;
+import com.parse.DeleteCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -231,12 +232,17 @@ public class EditFoodActivity extends NutritionActivity {
         }
 
         // Remove diary entry
-        m_DiaryEntry.deleteInBackground();
+        m_DiaryEntry.deleteInBackground(new DeleteCallback() {
+            @Override
+            public void done(ParseException e) {
+                Intent intent = new Intent();
+                intent.putExtra(EXTRA_TOAST_MESSAGE, getResources().getString(R.string.toast_food_deleted));
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
 
-        Intent intent = new Intent();
-        intent.putExtra(EXTRA_TOAST_MESSAGE, getResources().getString(R.string.toast_food_deleted));
-        setResult(RESULT_OK, intent);
-        finish();
+
 
     }
 

@@ -120,7 +120,8 @@ public class MyFoodsFragment extends RecipeFragment {
                         Recipe recipe = (Recipe) object;
                         m_RecipesList.add(recipe);
                     }
-                    m_RecipeListAdapter.notifyDataSetChanged();
+                    Log.d("****myfoods", Integer.toString(m_RecipesList.size()));
+                    m_RecipeListAdapter.update(m_RecipesList);
                  /*   if (m_AddUserMealActivity.inSearchMode()) {
                         resetSearch();
                         updateSearch(m_RecipesList, m_AddUserMealActivity.getSearchText());

@@ -100,6 +100,7 @@ public class RecentsFragment extends RecipeFragment {
                     for (ParseObject object : objects) {
                         Recipe recipe = (Recipe) object;
                         m_RecipesList.add(recipe);
+                        Log.d("****recents", Integer.toString(m_RecipesList.size()));
                     }
                     m_RecipeListAdapter.update(m_RecipesList);
 

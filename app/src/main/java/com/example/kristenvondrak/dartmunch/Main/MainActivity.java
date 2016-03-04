@@ -28,6 +28,7 @@ import com.example.kristenvondrak.dartmunch.Diary.DiaryFragment;
 import com.example.kristenvondrak.dartmunch.Diary.EditFoodActivity;
 import com.example.kristenvondrak.dartmunch.Menu.MenuFragment;
 import com.example.kristenvondrak.dartmunch.Menu.MenuFragmentHost;
+import com.example.kristenvondrak.dartmunch.Preferences.PrefsFragment;
 import com.example.kristenvondrak.dartmunch.R;
 import com.example.kristenvondrak.dartmunch.Stats.StatsFragment;
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements MenuFragmentHost 
     private ImageView m_NextDateButton;
     private ImageView m_PreviousDateButton;
     private TextView m_CurrentDateTextView;
-    //private TextView m_StatsDateTextView;
+    private TextView m_StatsHeader;
     private DatePickerDialog.OnDateSetListener m_DatePickerListener;
 
     private int[] m_TabIcons = {
@@ -120,11 +121,15 @@ public class MainActivity extends AppCompatActivity implements MenuFragmentHost 
             @Override
             public void onPageSelected(int position) {
                 m_CurrentTab = position;
-                
-                if (position == 2)
+
+                // TODO: cleaner way
+                if (position == 2) {
                     m_DateToolbar.setVisibility(View.INVISIBLE);
-                else
+                    m_StatsHeader.setVisibility(View.VISIBLE);
+                } else {
                     m_DateToolbar.setVisibility(View.VISIBLE);
+                    m_StatsHeader.setVisibility(View.INVISIBLE);
+                }
 
                 // Change tab icon colors
                 for (int i = 0; i < m_TabIcons.length; i++) {
@@ -161,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements MenuFragmentHost 
         m_PreviousDateButton = (ImageView) toolbar.findViewById(R.id.prev_date_btn);
         m_CurrentDateTextView = (TextView) toolbar.findViewById(R.id.date_text_view);
         m_DateToolbar = toolbar.findViewById(R.id.date_selector);
+        m_StatsHeader = (TextView)toolbar.findViewById(R.id.stats_header);
 
         SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT_DISPLAY, Locale.US);
         m_CurrentDateTextView.setText(sdf.format(m_Calendar.getTime()));
@@ -299,6 +305,9 @@ public class MainActivity extends AppCompatActivity implements MenuFragmentHost 
 
             else if (position == 2)
                 return new StatsFragment();
+
+            else if (position == 3)
+                return new PrefsFragment();
 
             return PlaceholderFragment.newInstance(position + 1);
         }
