@@ -17,7 +17,7 @@
          <include layout="@layout/date_selector" />
 
         <TextView
-            android:id="@+id/stats_header"
+            android:id="@+id/title_header"
             android:visibility="invisible"
             style="@style/HeaderText"
             android:layout_width="wrap_content"

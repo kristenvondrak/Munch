@@ -68,5 +68,24 @@
     <string name="height">Height</string>
     <string name="activityLevel">Activity Level</string>
     <string name="prefsGoal">Choose your goal!</string>
+    <string name="choose_gender">Gender</string>
+    <string name="ok">OK</string>
+    <string name="set">Set</string>
+    <string name="cancel">Cancel</string>
+    <string name="choose_height">Height</string>
+    <string name="choose_age">Age</string>
+    <string name="choose_weight">Current Weight</string>
+    <string name="goal">Goal</string>
+    <string name="Goal">Goal</string>
+    <string name="chooseMacros">Macronutrient Goal</string>
+    <string name="choose_macros">Macronutrients Goal</string>
+    <string name="choose_goal">Goal</string>
+    <string name="choose_activity_level">Activity Level</string>
+    <string name="female">Female</string>
+    <string name="subscribe">Subscribe</string>
+    <string name="prefs_tab">Preferences</string>
+    <string name="goal_message">Based on your preferences, your caloric breakdown is shown below.</string>
+    <string name="edit_goal_cals">Daily Goal Calories</string>
+    <string name="edit_goal_cals_message">The default value is calculated based on your personal preferences.  We do not recommend changing this value.</string>
 
 </resources>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/background_light">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="@string/choose_macros"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22dp"
+            android:gravity="center"/>
+
+
+        <ImageView
+            android:id="@+id/help_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right|center_vertical"
+            android:src="@drawable/ic_help"
+            android:layout_marginRight="10dp"
+            android:tint="@color/iron"/>
+    </FrameLayout>
+
+
+    <View
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorPrimary" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
+
+            <LinearLayout
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:visibility="gone"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@color/protein"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="34%"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:textColor="@color/protein"
+                    android:paddingLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Protein"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/protein"
+                    android:paddingLeft="10dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:visibility="gone"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@color/protein"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="46%"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:paddingLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Carbs"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:paddingLeft="10dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:visibility="gone"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@color/protein"/>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20%"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:textColor="@color/diaryAccent"
+                    android:paddingLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fat"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="@color/diaryAccent"
+                    android:paddingLeft="10dp"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:padding="10dp">
+
+            <com.example.kristenvondrak.dartmunch.Preferences.CircleTriSeekBar
+                android:id="@+id/picker1"
+                android:layout_gravity="center"
+                android:layout_width="140dp"
+                android:layout_height="200dp"
+                app:pointer_halo_color_1="@color/iron"
+                app:pointer_halo_color_2="@color/iron"
+                app:pointer_halo_color_3="@color/iron"
+                app:pointer_color_1="@color/colorPrimaryDark"
+                app:pointer_color_2="@color/diaryAccent"
+                app:pointer_color_3="@color/protein"
+                app:wheel_color_1="@color/colorPrimaryDark"
+                app:wheel_color_2="@color/diaryAccent"
+                app:wheel_color_3="@color/protein"
+                app:percent_id_1="@id/protein"
+                app:percent_id_2="@id/protein"
+                app:percent_id_3="@id/protein"/>
+        </FrameLayout>
+
+    </LinearLayout>
+
+
+
+
+    <include layout="@layout/dialog_prefs_btns" />
+
+
+</LinearLayout>
+

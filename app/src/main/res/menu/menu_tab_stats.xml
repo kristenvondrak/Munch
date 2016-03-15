@@ -4,8 +4,8 @@
     tools:context=".Main.MainActivity">
 
     <item
-        android:id="@+id/action_date_next"
+        android:id="@+id/action_date"
         android:title=""
-        android:icon="@drawable/ic_dummy_menu"
+        android:icon="@drawable/ic_date_range"
         app:showAsAction="always" />
 </menu>

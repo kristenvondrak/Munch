@@ -58,7 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="300"
+                    android:text=""
                     android:textSize="30dp"
                     android:textColor="@color/black"/>
 
@@ -190,7 +190,7 @@
                     <TextView
                         android:id="@+id/serving_text"
                         style="@style/NutritionValue"
-                        android:text="8 ounces weight"/>
+                        android:text=""/>
                 </TableRow>
 
             </TableLayout>

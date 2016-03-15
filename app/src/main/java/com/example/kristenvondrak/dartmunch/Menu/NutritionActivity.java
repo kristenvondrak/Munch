@@ -182,6 +182,9 @@ public class NutritionActivity extends AppCompatActivity {
 
         double num_servings = Constants.ServingsFracFloats[m_ServingsFraction] + m_ServingsWhole;
 
+        if (m_Recipe == null)
+            return;
+
         setTextViewValue(m_RecipeNutrientsView, R.id.calories, getNewValue(m_Recipe.getCalories(), num_servings));
         setTextViewValue(m_RecipeNutrientsView, R.id.fat_calories, getNewValue(m_Recipe.getFatCalories(), num_servings));
         setTextViewValue(m_RecipeNutrientsView, R.id.total_fat, getNewValue(m_Recipe.getTotalFat(), num_servings));

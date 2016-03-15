@@ -129,7 +129,7 @@ public class DiaryFragment extends Fragment implements MainTabFragment {
 
         // Allow user to pick date from date picker dialog
         if (id == R.id.action_calendar) {
-         /*   new DatePickerDialog(m_Activity, R.style.BasicAlertDialog,
+          /*  new DatePickerDialog(m_Activity, R.style.BasicAlertDialog,
                     m_DatePickerListener, m_Calendar.get(Calendar.YEAR),
                     m_Calendar.get(Calendar.MONTH), m_Calendar.get(Calendar.DAY_OF_MONTH)).show(); */
             return true;

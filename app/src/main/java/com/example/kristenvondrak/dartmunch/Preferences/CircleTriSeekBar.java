@@ -30,7 +30,7 @@ public class CircleTriSeekBar extends View {
     private static final String STATE_PARENT = "parent";
     private static final String STATE_ANGLE = "angle";
     private static final int TEXT_SIZE_DEFAULT_VALUE = 25;
-    public static final int COLOR_WHEEL_STROKE_WIDTH_DEF_VALUE = 30;
+    public static final int COLOR_WHEEL_STROKE_WIDTH_DEF_VALUE = 25;
     public static final float POINTER_RADIUS_DEF_VALUE = 30;
     public static final int MAX_POINT_DEF_VALUE = 100;
 

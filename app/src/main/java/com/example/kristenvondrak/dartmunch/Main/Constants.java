@@ -18,6 +18,11 @@ public class Constants {
     public static final int REQUEST_ADD_FROM_DIARY = 1;
     public static final int REQUEST_EDIT_FOOD = 2;
 
+    public static final String DATE_FORMAT_DISPLAY = "EEE, LLL d";
+    public static final String DATE_FORMAT_STATS = "LLL d";
+
+
+    // -------------------------------------------------------------------------------- Database
 
     public static class Database {
 
@@ -62,9 +67,10 @@ public class Constants {
     }
 
 
-    public static final String DATE_FORMAT_DISPLAY = "EEE, LLL d";
-    public static final String DATE_FORMAT_STATS = "LLL d";
 
+
+
+    // -------------------------------------------------------------------------------- Menu
     public enum Venue {Foco, Hop, Novack, Collis};
 
     public enum MealTime {Breakfast, Lunch, Dinner, LateNight, AllDay};
@@ -211,13 +217,14 @@ public class Constants {
             }});
 
 
+
+
+    // ------------------------------------------------------------------------------ Login/Signup
+
     public static class Validation {
         static int MinimumPasswordLength = 6;
         static int MaximumPasswordLength = 25;
         static String EmailRegex = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-
-        //static String EmailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}";
-
         static String InvalidEmailTitle = "Invalid Email";
         static String InvalidEmailMessage = "Please sign up with a valid email.";
         static String InvalidPasswordTitle = "Invalid Password";
@@ -233,6 +240,9 @@ public class Constants {
         static String OkActionTitle = "OK";
     }
 
+
+
+    // ------------------------------------------------------------------------------ Fractions
 
     public static final String[] ServingsFracDisplay = {
                 "-",
@@ -253,4 +263,31 @@ public class Constants {
                 (float) 2.0 / 3,
                 (float) 3.0 / 4};
 
-    }
+
+
+    // ------------------------------------------------------------------------------ Preferences
+
+    public static final int MALE = 0, FEMALE = 1;
+
+    public static final List<String> ActivityLevels = Collections.unmodifiableList(
+            new ArrayList<String>(){{
+                add("Sedentary");
+                add("Light");
+                add("Moderate");
+                add("Very");
+                add("Extra");
+            }});
+
+    public static final float[] PoundsPerWeek = {
+            (float) -1.5,
+            (float) -1.0,
+            (float) -.5,
+            (float) 0,
+            (float) .5,
+            (float) 1.0,
+            (float) 1.5};
+
+
+}
+
+

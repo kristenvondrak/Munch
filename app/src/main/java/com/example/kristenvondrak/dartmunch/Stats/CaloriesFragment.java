@@ -13,6 +13,7 @@ import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.kristenvondrak.dartmunch.Main.MainTabFragment;
 import com.example.kristenvondrak.dartmunch.Main.Utils;
 import com.example.kristenvondrak.dartmunch.Parse.DiaryEntry;
 import com.example.kristenvondrak.dartmunch.Parse.UserMeal;
@@ -42,17 +43,18 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.lang.*;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by kristenvondrak on 10/21/15.
  */
-public class CaloriesFragment extends Fragment implements OnChartValueSelectedListener {
+public class CaloriesFragment extends Fragment implements OnChartValueSelectedListener, MainTabFragment {
 
     private Activity m_Activity;
 
     //colors for filling in graphs
-    final int light_gray = Color.LTGRAY;
+    final int light_gray = Color.argb(200, 0, 171, 61);
     final int gray = Color.GRAY;
     final int bright_green = Color.argb(200, 0, 171, 61);
     final int dull_green = Color.argb(130, 0, 171, 61);
@@ -61,7 +63,10 @@ public class CaloriesFragment extends Fragment implements OnChartValueSelectedLi
     final int dull_red = Color.argb(175, 255, 45, 33);
 
     // Date
-    private Calendar m_Calendar;
+    // Date
+    private Calendar m_Calendar = Calendar.getInstance();   // REPRESENTS FIRST DAY IN WEEK (MONDAY)
+    private int m_SelectedDayOffset = 0;                    // 0 - 7
+
     private ImageView PreviousWeekButton;
     private TextView CurrentWeekTextView;
     private ImageView NextWeekButton;
@@ -69,6 +74,9 @@ public class CaloriesFragment extends Fragment implements OnChartValueSelectedLi
     //charts
     private BarChart calories_barChart;
     private PieChart pieChart;
+//    private DynamicLayout mCenterTextLayout;
+//    private TextPaint mCenterTextPaint;
+//    private RectF mCenterTextLastBounds = new RectF();
 
     //calories variables
     float dailyGoal;
@@ -77,9 +85,12 @@ public class CaloriesFragment extends Fragment implements OnChartValueSelectedLi
 
     //daily calories counts
     float[] calorie_counts = new float[7];
-    float current_cal;
+
+    //int currentWeek;
+    //int currentDay;
 
     String pie_center;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,61 +103,34 @@ public class CaloriesFragment extends Fragment implements OnChartValueSelectedLi
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_calories, container, false);
 
-        //queryGoalCalories();
-        dailyGoal = 2000f;
+        queryGoalCalories();
 
+        // Set the view for the fragment
         PreviousWeekButton = (ImageView) v.findViewById(R.id.prev_week_btn);
         CurrentWeekTextView = (TextView) v.findViewById(R.id.week_text_view);
         NextWeekButton = (ImageView) v.findViewById(R.id.next_week_btn);
-
-        m_Calendar = Calendar.getInstance();
-
-        int day_of_week = m_Calendar.get(Calendar.DAY_OF_WEEK);
-
-        m_Calendar.set(Calendar.DAY_OF_WEEK, m_Calendar.getFirstDayOfWeek());
-        update();
-
-        //set default values for pie chart
-        if (day_of_week == 1) {
-            caloriesConsumed = calorie_counts[6];
-        } else {
-            caloriesConsumed = calorie_counts[(day_of_week - 2)];
-        }
-
-        PreviousWeekButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                m_Calendar.add(Calendar.WEEK_OF_YEAR, -1);
-                update();
-            }
-        });
-
-        NextWeekButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                m_Calendar.add(Calendar.WEEK_OF_YEAR, 1);
-                update();
-            }
-        });
-
         pieChart = (PieChart) v.findViewById(R.id.chart);
         calories_barChart = (BarChart) v.findViewById(R.id.chart1);
 
-        calories_barChart.setScaleEnabled(false);
+        // Bar and pie chart specifications
+        calories_barChart.setAutoScaleMinMaxEnabled(false);
+        //calories_barChart.setScaleMinima(0, 0);
         calories_barChart.setDoubleTapToZoomEnabled(false);
+        calories_barChart.setBottom(0);
         calories_barChart.setDragEnabled(false);
         pieChart.setTouchEnabled(false);
 
         Legend legend_pie = pieChart.getLegend();
         Legend legend_bar = calories_barChart.getLegend();
-        legend_pie.setEnabled(false);
         legend_bar.setEnabled(false);
+        legend_pie.setEnabled(false);
 
         pieChart.setHoleRadius(60f);
         pieChart.setTransparentCircleRadius(65f);
         pieChart.setDrawSliceText(false);
         pieChart.setDrawCenterText(true);
-        pieChart.setCenterTextRadiusPercent(60f);
+        pieChart.setCenterTextRadiusPercent(80f);
+
 
         calories_barChart.setDrawGridBackground(false);
 
@@ -159,17 +143,76 @@ public class CaloriesFragment extends Fragment implements OnChartValueSelectedLi
         right_axis.setDrawLabels(false);
         left_axis.setDrawLabels(false);
 
-        LimitLine ll = new LimitLine(dailyGoal);
-        ll.setLineColor(gray);
-        ll.setLineWidth(.5f);
-
-        left_axis.addLimitLine(ll);
-        left_axis.isDrawLimitLinesBehindDataEnabled();
-
         XAxis bar_x = calories_barChart.getXAxis();
         bar_x.setPosition(XAxis.XAxisPosition.BOTTOM);
         bar_x.setDrawGridLines(false);
         bar_x.setDrawAxisLine(false);
+
+        //create empty charts
+        for (int i=0;i<=6;i++){calorie_counts[i]=0;}
+        caloriesConsumed=0;
+        setBarValues();
+        setPieValues();
+
+        //get current Calendar to initiate the bar chart data
+     /*   m_Calendar = Calendar.getInstance();
+        currentWeek = m_Calendar.get(Calendar.WEEK_OF_YEAR);
+        currentDay = m_Calendar.get(Calendar.DAY_OF_WEEK);
+        m_Calendar.set(Calendar.DAY_OF_WEEK, m_Calendar.getFirstDayOfWeek());
+        update(); */
+
+        calories_barChart.setOnChartValueSelectedListener(this);
+
+        //previous week button functionality
+        PreviousWeekButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                m_Calendar.add(Calendar.WEEK_OF_YEAR, -1);
+                update();
+            }
+        });
+
+        //next week button functionality
+        NextWeekButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                m_Calendar.add(Calendar.WEEK_OF_YEAR, 1);
+                update();
+            }
+        });
+
+        update(m_Calendar);
+        return v;
+    }
+
+    // @Override
+    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+        m_SelectedDayOffset = dataSetIndex;
+        BarEntry entry = (BarEntry) e;
+        caloriesConsumed = entry.getVal();
+        setPieValues();
+    }
+
+    // @Override
+    public void onNothingSelected() {
+        calories_barChart.highlightValue(0, 0);
+        caloriesConsumed = calorie_counts[0];
+        setPieValues();
+    }
+
+    // @Override
+    public void setBarValues() {
+
+        AxisBase leftAxis = calories_barChart.getAxisLeft();
+
+        LimitLine ll = new LimitLine(dailyGoal);
+        ll.setLineColor(gray);
+        ll.setLineWidth(.5f);
+        leftAxis.removeAllLimitLines();
+        leftAxis.addLimitLine(ll);
+        leftAxis.setDrawLimitLinesBehindData(true);
+
+        //leftAxis.isDrawLimitLinesBehindDataEnabled();
 
         ArrayList<BarEntry> entries1 = new ArrayList<>();
         entries1.add(new BarEntry(calorie_counts[0], 0));
@@ -200,22 +243,7 @@ public class CaloriesFragment extends Fragment implements OnChartValueSelectedLi
         calories_barChart.setDescription("");
         calories_barChart.setData(data1);
 
-        calories_barChart.setOnChartValueSelectedListener(this);
-
-        setPieValues();
-
-        return v;
-    }
-
-    // @Override
-    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
-        BarEntry entry = (BarEntry) e;
-        caloriesConsumed = entry.getVal();
-        setPieValues();
-    }
-
-    // @Override
-    public void onNothingSelected() {
+        calories_barChart.invalidate();
 
     }
 
@@ -231,12 +259,25 @@ public class CaloriesFragment extends Fragment implements OnChartValueSelectedLi
             entries.add(new Entry((caloriesOver), 1));
 
             PieDataSet dataset = new PieDataSet(entries, "");
-            dataset.setValueTextSize(10f);
+            dataset.setValueTextSize(13f);
 
             ArrayList<String> labels = new ArrayList<String>();
             labels.add("Calories");
             labels.add("Over");
             pie_center = Math.round(caloriesOver) + "\nCALORIES\nOVER BUDGET";
+
+//            int index = pie_center.indexOf("\n");
+
+//            Spannable tempSpannable = new SpannableString(pie_center);
+//            tempSpannable.setSpan(new RelativeSizeSpan(2f), 0, index,
+//                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            tempSpannable.setSpan(new ForegroundColorSpan(bright_green),
+//                    0, index, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//
+//            // If width is 0, it will crash. Always have a minimum of 1
+//            mCenterTextLayout = new DynamicLayout(tempSpannable, mCenterTextPaint,
+//                    (int)Math.max(Math.ceil(mCenterTextLastBounds.width()), 1.f),
+//                    Layout.Alignment.ALIGN_NORMAL, 1.f, 0.f, false);
 
             PieData data = new PieData(labels, dataset);
             int[] colorset = new int[]{bright_green, bright_red};
@@ -257,12 +298,25 @@ public class CaloriesFragment extends Fragment implements OnChartValueSelectedLi
             entries.add(new Entry((caloriesLeft), 1));
 
             PieDataSet dataset = new PieDataSet(entries, "");
-            dataset.setValueTextSize(17f);
+            dataset.setValueTextSize(13f);
 
             ArrayList<String> labels = new ArrayList<String>();
             labels.add("Calories");
             labels.add("Left");
             pie_center = Math.round(caloriesLeft) + "\nCALORIES\nUNDER BUDGET";
+
+//            int index = pie_center.indexOf("\n");
+//
+//            Spannable tempSpannable = new SpannableString(pie_center);
+//            tempSpannable.setSpan(new RelativeSizeSpan(2f), 0, index,
+//                    Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//            tempSpannable.setSpan(new ForegroundColorSpan(bright_green),
+//                    0, index, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+//
+//            // If width is 0, it will crash. Always have a minimum of 1
+//            pieChart.mCenterTextLayout = new DynamicLayout(tempSpannable, mCenterTextPaint,
+//                    (int)Math.max(Math.ceil(mCenterTextLastBounds.width()), 1.f),
+//                    Layout.Alignment.ALIGN_NORMAL, 1.f, 0.f, false);
 
             PieData data = new PieData(labels, dataset);
             int[] colorset = new int[]{bright_green, light_gray};
@@ -278,110 +332,111 @@ public class CaloriesFragment extends Fragment implements OnChartValueSelectedLi
 
     }
 
-    private void update() {
+    public void update(Calendar calendar) {
+        m_Calendar.setTimeInMillis(calendar.getTimeInMillis());
+        m_SelectedDayOffset = Utils.getDateOffset(m_Calendar.get(Calendar.DAY_OF_WEEK));
 
-        CurrentWeekTextView.setText(Utils.getWeekDisplayFromCal(m_Calendar));
-        calorie_counts[0] = 1500f;
-        calorie_counts[1] = 2250f;
-        calorie_counts[2] = 1400f;
-        calorie_counts[3] = 2000f;
-        calorie_counts[4] = 2150f;
-        calorie_counts[5] = 1800f;
-        calorie_counts[6] = 1700f;
-        //queryWeekCalories(m_Calendar, calorie_counts);
-        for (int i = 0; i < 7; i++){
-
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("UserMeal");
-            query.whereGreaterThan("date", Utils.getDateBefore(m_Calendar));
-            query.whereLessThan("date", Utils.getDateAfter(m_Calendar));
-            query.whereEqualTo("user", ParseUser.getCurrentUser());
-            query.include("entries.recipe");
-            query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
-            query.findInBackground(new FindCallback<ParseObject>() {
-
-                public void done(List<ParseObject> meals, ParseException e) {
-                    List<UserMeal> userMealList = new ArrayList<UserMeal>();
-                    if (e == null) {
-                        for (ParseObject object : meals) {
-                            userMealList.add((UserMeal) object);
-                        }
-                    } else {
-                        Log.d("MacrosFragment", "Error getting user meals: " + e.getMessage());
-                    }
-                    current_cal = calculateCalories(userMealList);
-                    Log.d("Count after calculate", Float.toString(current_cal) + "/" + Utils.getDisplayStringFromCal(m_Calendar));
-
-                }
-            });
-
-//            queryUserMeals(m_Calendar);
-            calorie_counts[i] = current_cal;
-                    Log.d("Count/Date", Float.toString(calorie_counts[i])+"/"+ Utils.getDisplayStringFromCal(m_Calendar));
-            m_Calendar.add(Calendar.DATE, 1);
+        // We want the week to start on Monday (not Sunday)
+        if (m_Calendar.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+            m_Calendar.add(Calendar.DAY_OF_WEEK, -1);
         }
-        //loop calendar back to start of week
-        m_Calendar.add(Calendar.DATE, -7);
-        caloriesConsumed = calorie_counts[0];
+        m_Calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        update();
     }
 
-//    private void queryUserMeals(final Calendar cal) {
-//
-//        ParseQuery<ParseObject> query = ParseQuery.getQuery("UserMeal");
-//        query.whereGreaterThan("date", Utils.getDateBefore(cal));
-//        query.whereLessThan("date", Utils.getDateAfter(cal));
-//        query.whereEqualTo("user", ParseUser.getCurrentUser());
-//        query.include("entries.recipe");
-//        query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
-//        query.findInBackground(new FindCallback<ParseObject>() {
-//
-//            public void done(List<ParseObject> meals, ParseException e) {
-//                List<UserMeal> userMealList = new ArrayList<UserMeal>();
-//                if (e == null) {
-//                    for (ParseObject object : meals) {
-//                        userMealList.add((UserMeal) object);
-//                    }
-//                } else {
-//                    Log.d("MacrosFragment", "Error getting user meals: " + e.getMessage());
-//                }
-//                current_cal = calculateCalories(userMealList);
-//                Log.d("Count after calculate", Float.toString(current_cal) + "/" + Utils.getDisplayStringFromCal(cal));
-//
-//            }
-//        });
-//    }
+    private void update() {
+        CurrentWeekTextView.setText(Utils.getWeekDisplayFromCal(m_Calendar));
+        queryWeekCalories(m_Calendar);
+    }
 
-    private float calculateCalories(List<UserMeal> list) {
-        // Recalculate the total calories consumed
-        float total_calories = 0;
+    private void queryWeekCalories(Calendar cal) {
+
+        Calendar last = (Calendar) cal.clone();
+        last.add(Calendar.DAY_OF_YEAR, 6);
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("UserMeal");
+        query.whereGreaterThan("date", Utils.getDateBefore(cal));
+        query.whereLessThan("date", Utils.getDateAfter(last));
+        query.whereEqualTo("user", ParseUser.getCurrentUser());
+        query.include("entries.recipe");
+        query.setCachePolicy(ParseQuery.CachePolicy.NETWORK_ELSE_CACHE);
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            public void done(List<ParseObject> meals, ParseException e) {
+                List<UserMeal> userMealList = new ArrayList<UserMeal>();
+                if (e == null) {
+                    for (ParseObject object : meals) {
+//                        Log.d("Count after calculate", Float.toString(calorie_counts[i]) + "/" + object.getDate());
+                        userMealList.add((UserMeal) object);
+                    }
+                } else {
+                    Log.d("CaloriesFragment", "Error getting user meals: " + e.getMessage());
+                }
+                updateCalorieSummary(userMealList);
+            }
+        });
+    }
+
+    private void updateCalorieSummary(List<UserMeal> list) {
+
+        //clear the calories count list
+        for (int i=0; i<=6; i++){
+            calorie_counts[i] = 0;
+        }
+
+        //get usermeals for the week, adding to total calorie count based on day
         for (UserMeal m : list) {
+            Date mealDate = m.getDate();
+            Calendar c = Calendar.getInstance();
+            c.setTime(mealDate);
+            int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
             for (DiaryEntry e : m.getDiaryEntries()) {
-                total_calories += e.getTotalCalories();
+                if (dayOfWeek == 1){
+                    calorie_counts[6] += e.getTotalCalories();
+                }
+                else{
+                    calorie_counts[dayOfWeek-2] += e.getTotalCalories();
+                }
+
             }
         }
-        return total_calories;
+
+        setBarValues();
+        calories_barChart.highlightValue(m_SelectedDayOffset,0);
+        caloriesConsumed = calorie_counts[m_SelectedDayOffset];
+        setPieValues();
     }
 
     private void queryGoalCalories() {
-
         ParseQuery<User> query = ParseQuery.getQuery("User");
         query.whereEqualTo("user", ParseUser.getCurrentUser());
         query.getFirstInBackground(new GetCallback<User>() {
             public void done(User CurrentUser, ParseException e) {
+                float Goal = 0f;
                 if (e == null) {
                     if (CurrentUser == null) {
-                        dailyGoal = 1000f;
+                        Goal = 2000f;
                     } else {
-                        CurrentUser.setGoalDailyCalories(1500f);
-                        dailyGoal = CurrentUser.getGoalDailyCalories();
-                        Log.d("GoalCalories", dailyGoal + e.getMessage());
+                        int goal = CurrentUser.getGoalCalories();
 
+                        if (goal == 0.0) {
+                            Goal = 2000f;
+                        } else {
+                            Goal = goal;
+                        }
                     }
                 } else {
-                    dailyGoal = 500f;
+                    Goal = 2000f;
+                    ;
                     Log.d("CaloriesFragment", "Error getting goal calories: " + e.getMessage());
                 }
+                setGoalCals(Goal);
             }
         });
+    }
+
+    private void setGoalCals(float goal){
+        dailyGoal = goal;
     }
 
 }

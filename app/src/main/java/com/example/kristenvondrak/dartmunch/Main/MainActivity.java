@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements MenuFragmentHost 
     private ImageView m_NextDateButton;
     private ImageView m_PreviousDateButton;
     private TextView m_CurrentDateTextView;
-    private TextView m_StatsHeader;
+    private TextView m_TitleHeader;
     private DatePickerDialog.OnDateSetListener m_DatePickerListener;
 
     private int[] m_TabIcons = {
@@ -123,12 +123,14 @@ public class MainActivity extends AppCompatActivity implements MenuFragmentHost 
                 m_CurrentTab = position;
 
                 // TODO: cleaner way
-                if (position == 2) {
+                if (position == 2 || position == 3) {
                     m_DateToolbar.setVisibility(View.INVISIBLE);
-                    m_StatsHeader.setVisibility(View.VISIBLE);
+                    m_TitleHeader.setVisibility(View.VISIBLE);
+                    m_TitleHeader.setText(position == 2
+                            ? getResources().getString(R.string.nutrition_tab) : getResources().getString(R.string.prefs_tab));
                 } else {
                     m_DateToolbar.setVisibility(View.VISIBLE);
-                    m_StatsHeader.setVisibility(View.INVISIBLE);
+                    m_TitleHeader.setVisibility(View.INVISIBLE);
                 }
 
                 // Change tab icon colors
@@ -166,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements MenuFragmentHost 
         m_PreviousDateButton = (ImageView) toolbar.findViewById(R.id.prev_date_btn);
         m_CurrentDateTextView = (TextView) toolbar.findViewById(R.id.date_text_view);
         m_DateToolbar = toolbar.findViewById(R.id.date_selector);
-        m_StatsHeader = (TextView)toolbar.findViewById(R.id.stats_header);
+        m_TitleHeader = (TextView)toolbar.findViewById(R.id.title_header);
 
         SimpleDateFormat sdf = new SimpleDateFormat(Constants.DATE_FORMAT_DISPLAY, Locale.US);
         m_CurrentDateTextView.setText(sdf.format(m_Calendar.getTime()));

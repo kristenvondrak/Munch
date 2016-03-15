@@ -4,4 +4,14 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
+
+    <string-array name="goals_array">
+        <item>Lose 1.5 lbs per week</item>
+        <item>Lose 1 lb per week</item>
+        <item>Lose 0.5 lbs per week</item>
+        <item>Maintain my current weight</item>
+        <item>Gain 0.5 lbs per week</item>
+        <item>Gain 1 lb per week</item>
+        <item>Gain 1.5 lbs per week</item>
+    </string-array>
 </resources>

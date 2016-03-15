@@ -51,10 +51,10 @@ public class StatsFragment extends Fragment implements MainTabFragment {
                 CaloriesFragment.class, null);
 
         m_TabHost.addTab(m_TabHost.newTabSpec(m_TabTitles[1]).setIndicator(m_TabTitles[1]),
-                MacrosFragment.class, null);
+                ProgressFragment.class, null);
 
         // Highlight the tabs accordingly
-        changeTabColor(m_TabHost.getTabWidget().getChildAt(0), R.color.diaryAccent);
+        changeTabColor(m_TabHost.getTabWidget().getChildAt(0), R.color.black);
         changeTabColor(m_TabHost.getTabWidget().getChildAt(1), R.color.lightGray);
         m_TabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
 
@@ -63,9 +63,10 @@ public class StatsFragment extends Fragment implements MainTabFragment {
                 // Unselected Tabs
                 for (int i = 0; i < m_TabHost.getTabWidget().getChildCount(); i++) {
                     changeTabColor(m_TabHost.getTabWidget().getChildAt(i), R.color.lightGray);
+
                 }
                 // Selected Tab
-                changeTabColor(m_TabHost.getCurrentTabView(), R.color.diaryAccent);
+                changeTabColor(m_TabHost.getCurrentTabView(), R.color.black);
             }
         });
 
@@ -80,21 +81,16 @@ public class StatsFragment extends Fragment implements MainTabFragment {
     }
 
     public void update(Calendar calendar) {
-        Log.d("** update in stats", "*****************");
         for (Fragment fragment: getChildFragmentManager().getFragments()){
-            Log.d("--------", "----------------");
             if (fragment instanceof MainTabFragment) {
                 ((MainTabFragment) fragment).update(calendar);
-                Log.d("** update in stats", "^^ yup");
-            } else {
-                Log.d("** update in stats", "^^ nope");
             }
         }
     }
 
     @Override
     public void onCreateOptionsMenu(final Menu menu, final MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_tab_diary, menu);
+        inflater.inflate(R.menu.menu_tab_stats, menu);
 
         final android.support.v7.app.ActionBar ab = m_Activity.getSupportActionBar();
         ab.setDisplayShowHomeEnabled(true); // show the default home button

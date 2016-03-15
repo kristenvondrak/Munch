@@ -97,6 +97,8 @@ public class AddMealActivity extends AppCompatActivity {
             public void done(ParseObject object, ParseException e) {
                 if (e == null) {
                     m_UserMeal = (UserMeal) object;
+                    m_SelectedUserMeal = Utils.getUserMealIndex(m_UserMeal.getTitle());
+                    resetMealSelector();
                     m_MealEntriesListAdapter = new MealEntriesListAdapter(m_Activity, m_UserMeal.getDiaryEntries());
                     m_MealEntriesListView.setAdapter(m_MealEntriesListAdapter);
                 } else {

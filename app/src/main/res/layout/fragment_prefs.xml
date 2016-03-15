@@ -2,32 +2,29 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="@dimen/activity_vertical_margin">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:stretchColumns="*">
+            android:layout_gravity="center">
 
 
             <TableRow
+                android:id="@+id/choose_gender"
                 android:background="@drawable/list_item_selector"
+                android:padding="10dp"
                 android:clickable="true">
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="@string/gender"
-                    android:textColor="@color/black"
-                    android:textSize="19dp" />
+                    style="@style/PrefsTitle"
+                    android:text="@string/gender" />
 
                 <View
                     android:layout_width="match_parent"
@@ -36,14 +33,9 @@
 
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="Male"
-                    android:gravity="right"
-                    android:textColor="@color/diaryAccent"
-                    android:textSize="19dp" />
+                    android:id="@+id/gender_value"
+                    style="@style/PrefsValue"
+                    android:text="Male" />
 
             </TableRow>
 
@@ -59,17 +51,14 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/choose_age"
                 android:background="@drawable/list_item_selector"
+                android:padding="10dp"
                 android:clickable="true">
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="@string/age"
-                    android:textColor="@color/black"
-                    android:textSize="19dp" />
+                    style="@style/PrefsTitle"
+                    android:text="@string/age" />
 
                 <View
                     android:layout_width="match_parent"
@@ -78,14 +67,9 @@
 
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="21"
-                    android:gravity="right"
-                    android:textColor="@color/diaryAccent"
-                    android:textSize="19dp" />
+                    android:id="@+id/age_value"
+                    style="@style/PrefsValue"
+                    android:text="21" />
 
             </TableRow>
 
@@ -101,17 +85,14 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/choose_weight"
                 android:background="@drawable/list_item_selector"
-                android:clickable="true">
+                android:clickable="true"
+                android:padding="10dp">
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="@string/weight"
-                    android:textColor="@color/black"
-                    android:textSize="19dp" />
+                    style="@style/PrefsTitle"
+                    android:text="@string/weight" />
 
                 <View
                     android:layout_width="match_parent"
@@ -120,14 +101,9 @@
 
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="160"
-                    android:gravity="right"
-                    android:textColor="@color/diaryAccent"
-                    android:textSize="19dp" />
+                    android:id="@+id/weight_value"
+                    style="@style/PrefsValue"
+                    android:text="160" />
 
             </TableRow>
 
@@ -143,17 +119,14 @@
             </TableRow>
 
             <TableRow
+                android:id="@+id/choose_height"
                 android:background="@drawable/list_item_selector"
-                android:clickable="true">
+                android:clickable="true"
+                android:padding="10dp">
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="@string/height"
-                    android:textColor="@color/black"
-                    android:textSize="19dp" />
+                    style="@style/PrefsTitle"
+                    android:text="@string/height" />
 
                 <View
                     android:layout_width="match_parent"
@@ -162,14 +135,9 @@
 
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="5'10''"
-                    android:gravity="right"
-                    android:textColor="@color/diaryAccent"
-                    android:textSize="19dp" />
+                    android:id="@+id/height_value"
+                    style="@style/PrefsValue"
+                    android:text="5'10''" />
 
             </TableRow>
 
@@ -186,17 +154,14 @@
 
 
             <TableRow
+                android:id="@+id/choose_activity_level"
                 android:background="@drawable/list_item_selector"
-                android:clickable="true">
+                android:clickable="true"
+                android:padding="10dp">
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="@string/activityLevel"
-                    android:textColor="@color/black"
-                    android:textSize="19dp" />
+                    style="@style/PrefsTitle"
+                    android:text="@string/activityLevel"/>
 
                 <View
                     android:layout_width="match_parent"
@@ -205,16 +170,14 @@
 
 
                 <TextView
-                    android:padding="5dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="Moderate"
-                    android:gravity="right"
-                    android:textColor="@color/diaryAccent"
-                    android:textSize="19dp" />
+                    android:minWidth="200dp"
+                    android:id="@+id/activity_value"
+                    style="@style/PrefsValue"
+                    android:text="Moderate" />
 
             </TableRow>
+
+
 
             <TableRow
                 android:layout_width="match_parent"
@@ -226,47 +189,301 @@
                     android:layout_weight="1"
                     android:background="@color/lightIron" />
             </TableRow>
+
 
         </TableLayout>
 
-        <Button
-            android:layout_marginTop="20dp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/lightIron"
-            android:text="@string/prefsGoal"
-            android:textSize="18dp"
-            android:textColor="@color/white"
-            android:textAllCaps="false" />
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:layout_gravity="center">
 
-        <FrameLayout
+            <LinearLayout
+                android:layout_weight="1000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:maxWidth="200dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="Estimated"
+                    android:textColor="@color/aluminum"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/cals_estimated_text"
+                    android:layout_gravity="center"
+                    android:maxWidth="200dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="2084"
+                    android:textColor="@color/aluminum"
+                    android:textSize="25dp" />
+
+            </LinearLayout>
+
+            <ViewFlipper
+                android:id="@+id/cals_view_flipper"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="0"
+                android:layout_gravity="center"
+                android:clickable="true">
+
+                <ImageView
+                    android:src="@drawable/ic_equals"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:tint="@color/diaryAccent"/>
+
+                <ImageView
+                    android:id="@+id/custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/right_arrow_white"
+                    android:tint="@color/diaryAccent"/>
+
+            </ViewFlipper>
+
+            <LinearLayout
+                android:layout_weight="1000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:maxWidth="200dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="Burned"
+                    android:textColor="@color/aluminum"
+                    android:textSize="14dp" />
+
+                <EditText
+                    android:id="@+id/cals_burned_edit_text"
+                    android:background="@color/transparent"
+                    android:inputType="number"
+                    android:editable="true"
+                    android:layout_gravity="center"
+                    android:maxWidth="200dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:text="2084"
+                    android:textColor="@color/aluminum"
+                    android:textSize="25dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+        <TextView
+            android:id="@+id/goal_button"
+            android:background="@drawable/button_background"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:textSize="17dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp">
+            android:textColor="@color/white"
+            android:text="I want to lose .5 pounds"
+            android:layout_marginBottom="10dp" />
 
-            <com.example.kristenvondrak.dartmunch.Preferences.CircleTriSeekBar
-                android:id="@+id/picker1"
-                android:layout_gravity="center"
-                android:layout_width="150dp"
-                android:layout_height="200dp"
-                android:background="@color/white"
-                app:pointer_halo_color_1="@color/iron"
-                app:pointer_halo_color_2="@color/iron"
-                app:pointer_halo_color_3="@color/iron"
-                app:pointer_color_1="@color/carbs"
-                app:pointer_color_2="@color/fats"
-                app:pointer_color_3="@color/protein"
-                app:wheel_color_1="@color/carbs"
-                app:wheel_color_2="@color/fats"
-                app:wheel_color_3="@color/protein" />
 
-        </FrameLayout>
+        <LinearLayout
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/cal_summary_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2084"
+                android:textColor="@color/aluminum"
+                android:textSize="21dp"
+                android:padding="10dp"/>
+
+            <TextView
+                android:id="@+id/cal_summary_eqn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+"
+                android:textColor="@color/aluminum"
+                android:textSize="21dp" />
+
+            <TextView
+                android:id="@+id/cal_summary_diff"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/aluminum"
+                android:textSize="21dp"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="="
+                android:textColor="@color/aluminum"
+                android:textSize="21dp" />
+
+            <TextView
+                android:id="@+id/cal_summary_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2084"
+                android:textColor="@color/aluminum"
+                android:textSize="21dp"
+                android:padding="10dp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:padding="10dp">
+
+                <com.example.kristenvondrak.dartmunch.Preferences.CircleTriSeekBar
+                    android:id="@+id/picker1"
+                    android:layout_gravity="center"
+                    android:layout_width="140dp"
+                    android:layout_height="200dp"
+                    app:pointer_halo_color_1="@color/iron"
+                    app:pointer_halo_color_2="@color/iron"
+                    app:pointer_halo_color_3="@color/iron"
+                    app:pointer_color_1="@color/colorPrimaryDark"
+                    app:pointer_color_2="@color/diaryAccent"
+                    app:pointer_color_3="@color/protein"
+                    app:wheel_color_1="@color/colorPrimaryDark"
+                    app:wheel_color_2="@color/diaryAccent"
+                    app:wheel_color_3="@color/protein"
+                    app:percent_id_1="@id/protein"
+                    app:percent_id_2="@id/protein"
+                    app:percent_id_3="@id/protein"/>
+            </FrameLayout>
+
+
+            <LinearLayout
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/protein_percent_text"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="34%"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:textColor="@color/protein" />
+
+                    <TextView
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Protein"
+                        android:textStyle="bold"
+                        android:textSize="16dp"
+                        android:textColor="@color/protein" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/carbs_percent_text"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="46%"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Carbs"
+                        android:textStyle="bold"
+                        android:textSize="16dp"
+                        android:layout_gravity="center"
+                        android:textColor="@color/colorPrimaryDark" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/fat_percent_text"
+                        android:layout_gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20%"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:textColor="@color/diaryAccent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fat"
+                        android:textStyle="bold"
+                        android:textSize="16dp"
+                        android:layout_gravity="center"
+                        android:textColor="@color/diaryAccent" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
 
 
     </LinearLayout>
-
-
 
 </ScrollView>

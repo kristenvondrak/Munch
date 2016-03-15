@@ -32,6 +32,9 @@
 
         <item name="colorButtonNormal">@color/colorPrimaryDarker</item>
         <item name="android:colorButtonNormal">@color/colorPrimaryDarker</item>
+        <item name="android:editTextColor">@color/white</item>
+
+        <item name="android:dialogTheme">@style/BasicAlertDialog</item>
 
     </style>
 
@@ -125,6 +128,7 @@
         <!-- Used for the title and text -->
         <item name="android:textColorPrimary">@color/black</item>
         <item name="android:textColorSecondary">@color/base</item>
+        <item name="android:editTextColor">@color/black</item>
     </style>
 
     <style name="DeleteDialogStyle" parent="@android:style/Theme.Holo.Light.Dialog">
